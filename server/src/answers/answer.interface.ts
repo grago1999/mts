@@ -8,10 +8,13 @@ export interface BackendAnswer {
   name: string;
   score: number;
   rank: number;
-  children: Answer[];
 }
 
 export interface Round {
   question: string;
   active: boolean;
+}
+
+export interface Basic_Ans {
+  answer: string;
 }
