@@ -15,13 +15,19 @@ const getLetterMap = (str: string): Map<string, string> => {
   return letters
 }
 
-function isSimilar(first : string, second : string, sharedLetterThreshold : number = 0.8, letterCountThreshold : number = 0.75) : boolean {
+function isSimilar(first : string, second : string, sharedLetterThreshold : number = 0.8, letterCountThreshold : number = 0.75, editThreshold : number = 0.25) : boolean {
+  // Basic edit distance, except transposition has a cost of 1
+  var edits : number = natural.DamerauLevenshteinDistance(first, second);
+  if (edits/(Math.max(first.length, second.length)) <= (editThreshold + 0.0001)) {
+    return true;
+  }
+
   if (first.length < 5) {
     sharedLetterThreshold *= 0.6
   }
   const firstLetterMap = getLetterMap(first)
   const secondLetterMap = getLetterMap(second)
-  
+
   const firstLetters = Array.from(firstLetterMap.keys())
   const secondLetters = Array.from(secondLetterMap.keys())
 
