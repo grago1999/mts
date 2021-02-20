@@ -9,8 +9,13 @@ interface GroupItem {
 	words: string[]
 }
 
+const groupItemSort = (a: GroupItem, b: GroupItem) => a.count > b.count ? -1 : 1;
+
 function AdminGroupList() {
-	const [groups, setGroups] = useState<GroupItem[]>([])
+	const [groups, setGroups] = useState<GroupItem[]>([]);
+	const [wordToMove, setWordToMove] = useState('');
+	const [groupFrom, setGroupFrom] = useState({id:'',mainWord:''});
+	const [groupTo, setGroupTo] = useState({id:'',mainWord:''});
 
 	const getGroupList = () => {
 		// fetch("http://localhost:1000")
@@ -54,8 +59,26 @@ function AdminGroupList() {
 				words: ["bar1", "bar2"]
 			},
 		]
-		setGroups(groups.sort((a: GroupItem, b: GroupItem) => a.count > b.count ? 1 : -1))
+		setGroups(groups.sort(groupItemSort))
 	}
+
+	const moveWord = (word: string, from: any, to: any) => {
+		const newGroups = groups.map((group: GroupItem) => {
+			if(group.id === to.id){
+				group.count += 1; //TODO: Find the actual count of the word
+				group.words.push(word);
+			} else if(group.id === from.id) {
+					group.count -= 1;
+					group.words = group.words.filter((ans: string) => ans !== word);
+			}
+
+			return group;
+		})
+		setGroups(newGroups.sort(groupItemSort));
+		setWordToMove('');
+		setGroupFrom({id: '', mainWord: ''});
+		setGroupTo({id: '', mainWord: ''});
+	};
 	
 	
 	useEffect(() => {
@@ -65,22 +88,36 @@ function AdminGroupList() {
 	})
 
 	return (
-		<div id="group-list" className="adminList">
-			{groups.length > 0 && groups.map((group: GroupItem, i: number) => {
-				const id = `group_${i}`
+		<>
+			<div id="group-list" className="adminList">
+				{groups.length > 0 && groups.map((group: GroupItem, i: number) => {
+					const id = `group_${i}`
 
-				return (
-					<div id={id} key={id} className="item">
-						<h3>{`${i+1} - ${group.mainWord}`}</h3>
-						<div id={`${id}_words`} className="words">
-							{group.words.map(word => {
-								return <button key={word}>{word}</button>
-							})}
+					return (
+						<div id={id} key={id} className="item">
+							<h3>{`${i+1} - ${group.mainWord}`}</h3>
+							<div id={`${id}_words`} className="words">
+								{group.words.map(word => {
+									return <button key={word} onClick={() => {
+										setWordToMove(word);
+										setGroupFrom({id: group.id, mainWord: group.mainWord});
+									}}>{word}</button>
+								})}
+							</div>
 						</div>
-					</div>
-				)	
-			})}
-		</div>
+					)
+				})}
+			</div>
+			<div>
+				<div>Word Being Moved: {wordToMove}</div>
+				<div>From Group: {groupFrom.mainWord}</div>
+				<div>To Group: {groupTo.mainWord}</div>
+				<button onClick={() => moveWord(wordToMove, groupFrom,groupTo)}> Move </button>
+				{wordToMove && groups.filter(group => group.id !== groupFrom.id).map(
+					group => <button key={group.id} onClick={() => setGroupTo({id: group.id, mainWord: group.mainWord})}> {group.mainWord} </button>
+				)}
+			</div>
+		</>
 	)
 }
 
