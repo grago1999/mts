@@ -26,8 +26,9 @@ export default class App extends React.Component{
             return
         }
 
-        fetch("http://localhost:1000/submitAnswer", {
+        fetch("http://localhost:7000/submitAnswer", {
             method: "POST",
+            "Content-Type": "application/json",
             body: {
                 answer
             }
