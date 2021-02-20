@@ -1,0 +1,11 @@
+{
+  "name": "mts-server",
+  "version": "1.0.0",
+  "description": "mts server",
+  "main": "index.ts",
+  "scripts": {
+    "test": "test"
+  },
+  "author": "mts",
+  "license": "ISC"
+}
