@@ -3,10 +3,17 @@ import logo from './logo.svg';
 import './App.css';
 
 import GroupList from "./components/GroupList"
+import AdminGroupList from "./components/AdminGroupList"
+import QuestionManager from "./components/QuestionManager"
+
+enum Tabs {
+  Admin,
+  Play
+}
 
 const PlayTab = () => {
   return (
-    <div>
+    <div id="play" className="tab">
       <h1>Question: What is the best gaming platform?</h1>
       <GroupList />
     </div>
@@ -14,20 +21,23 @@ const PlayTab = () => {
 }
 
 const AdminTab = () => {
-  return <div></div>
+  return <div id="admin" className="tab">
+    <AdminGroupList />
+    <QuestionManager />
+  </div>
 }
 
 function App() {
-  const [tab, setTab] = useState(0)
+  const [tab, setTab] = useState(Tabs.Play)
 
   return (
     <div className="App">
       <header className="App-header">
-        {tab === 0 && <PlayTab />}
-        {tab === 1 && <AdminTab />}
+        {tab === Tabs.Play && <PlayTab />}
+        {tab === Tabs.Admin && <AdminTab />}
         <div id="tabs" className="tabs">
-          <button onClick={() => setTab(0)}>Play</button>
-          <button onClick={() => setTab(1)}>Admin</button>
+          <button onClick={() => setTab(Tabs.Play)}>Play</button>
+          <button onClick={() => setTab(Tabs.Admin)}>Admin</button>
         </div>
       </header>
     </div>

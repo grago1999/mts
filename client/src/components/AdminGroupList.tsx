@@ -1,15 +1,15 @@
 import { group } from "console"
 import React, { useState, useEffect } from "react"
-import "./groupList.css"
+import "./adminGroupList.css"
 
 interface GroupItem {
 	id: string,
 	mainWord: string,
 	count: number,
-	hidden: boolean
+	words: string[]
 }
 
-function GroupList() {
+function AdminGroupList() {
 	const [groups, setGroups] = useState<GroupItem[]>([])
 
 	const getGroupList = () => {
@@ -21,37 +21,37 @@ function GroupList() {
 				id: "abc1",
 				mainWord: "gum",
 				count: 10,
-				hidden: true
+				words: ["gum1", "gum2"]
 			},
 			{
 				id: "abc2",
 				mainWord: "game",
 				count: 4,
-				hidden: true
+				words: ["game1", "game2"]
 			},
 			{
 				id: "abc3",
 				mainWord: "steam",
 				count: 6,
-				hidden: true
+				words: ["steam1", "steam2"]
 			},
 			{
 				id: "abc4",
 				mainWord: "foo",
 				count: 8,
-				hidden: true
+				words: ["foo1", "foo2"]
 			},
 			{
 				id: "abc5",
 				mainWord: "cactus",
 				count: 1,
-				hidden: true
+				words: ["cactus1", "cactus2"]
 			},
 			{
 				id: "abc6",
 				mainWord: "bar",
 				count: 2,
-				hidden: true
+				words: ["bar1", "bar2"]
 			},
 		]
 		setGroups(groups.sort((a: GroupItem, b: GroupItem) => a.count > b.count ? 1 : -1))
@@ -64,25 +64,19 @@ function GroupList() {
 		}
 	})
 
-	const show = (id: string) => {
-		let newGroups: GroupItem[] = groups.map(group => {
-			if (group.id === id) {
-				group.hidden = false
-			}
-			return group
-		})
-		setGroups(newGroups)
-	}
-
 	return (
-		<div id="group-list" className="list">
+		<div id="group-list" className="adminList">
 			{groups.length > 0 && groups.map((group: GroupItem, i: number) => {
 				const id = `group_${i}`
 
 				return (
 					<div id={id} key={id} className="item">
-						<h1>{i+1}</h1>
-						<button onClick={() => show(group.id)}>{group.hidden ? "?" : group.mainWord}</button>
+						<h3>{`${i+1} - ${group.mainWord}`}</h3>
+						<div id={`${id}_words`} className="words">
+							{group.words.map(word => {
+								return <button key={word}>{word}</button>
+							})}
+						</div>
 					</div>
 				)	
 			})}
@@ -90,4 +84,4 @@ function GroupList() {
 	)
 }
 
-export default GroupList
+export default AdminGroupList
