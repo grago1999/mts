@@ -30,7 +30,7 @@ export default class App extends React.Component{
             method: "POST",
             "Content-Type": "application/json",
             body: {
-                answer
+                string: answer
             }
         })
         .then(() => this.setState({ hasSubmittedAnswer: true, answer }))
