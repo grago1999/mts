@@ -1,8 +1,53 @@
 var natural = require('natural');
 
 
-function isSimilar(first : string, second : string) : boolean {
-  return false;
+const getLetterMap = (str: string): Map<string, string> => {
+  const letters = new Map()
+  for (let i = 0; i < str.length; i++) {
+    const letter = str.charAt(i)
+    if (letters.has(letter)) {
+      letters.set(letter, letters.get(letter) + 1)
+    } else {
+      letters.set(letter, 1)
+    }
+  }
+
+  return letters
+}
+
+function isSimilar(first : string, second : string, sharedLetterThreshold : number = 0.8, letterCountThreshold : number = 0.75) : boolean {
+  if (first.length < 5) {
+    sharedLetterThreshold *= 0.6
+  }
+  const firstLetterMap = getLetterMap(first)
+  const secondLetterMap = getLetterMap(second)
+  
+  const firstLetters = Array.from(firstLetterMap.keys())
+  const secondLetters = Array.from(secondLetterMap.keys())
+
+  const setOfLetters = new Set([...firstLetters, ...secondLetters])
+
+  let sharedLetters = 0
+  let diffLetters = 0
+  let shareLetterCountIsSame = 0
+  let shareLetterCountIsDiff = 0
+  setOfLetters.forEach(letter => {
+    if (firstLetterMap.has(letter) && secondLetterMap.has(letter)) {
+      sharedLetters += 1
+      if (firstLetterMap.get(letter) === secondLetterMap.get(letter)) {
+        shareLetterCountIsSame += 1
+      } else{
+        shareLetterCountIsDiff += 1
+      }
+    } else {
+      diffLetters += 1
+    }
+  })
+
+  const sharedLetterPercentage = sharedLetters / (sharedLetters + diffLetters)
+  const letterCountPercentage = shareLetterCountIsSame / (shareLetterCountIsSame + shareLetterCountIsDiff)
+
+  return sharedLetterPercentage >= sharedLetterThreshold && letterCountPercentage >= letterCountThreshold
 }
 
 // function that gets the top n answers from the returnGroups function
@@ -78,3 +123,8 @@ export function returnGroups(input : string[]) : {[name : string] : number} {
   }
   return realOut;
 }
+
+// console.log(isSimilar("csgo", "csgi") === true ? "success" : "fail")
+// console.log(isSimilar("csgo", "cshd") === false ? "success" : "fail")
+// console.log(isSimilar("faang", "fang") === true ? "success" : "fail")
+// console.log(isSimilar("faang", "fanng") === false ? "success" : "fail")

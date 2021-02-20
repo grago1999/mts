@@ -9,6 +9,9 @@
   "author": "mts",
   "license": "ISC",
   "dependencies": {
-    "natural": "^4.0.0"
+    "natural": "4.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "14.6.0"
   }
 }
