@@ -3,10 +3,6 @@
  */
  import express, { Request, Response } from "express";
  import * as AnswerService from "./answers.service";
- import { UserAnswer } from "./answer.interface";
- import { UserAnswers } from "./answers.interface";
- import { BackendAnswer } from "./answer.interface";
- import { BackendAnswers } from "./answers.interface";
  import { GroupMap } from "./answers.interface";
  import { TopAnswers } from "./answers.interface";
  import { Round } from "./answer.interface";
@@ -25,16 +21,13 @@ export const answersRouter = express.Router();
  answersRouter.get("/allanswers", async (req: Request, res: Response) => {
   try {
     const final_results: TopAnswers[] = await AnswerService.findAll();
-    //const final_results: string[] = await AnswerService.findAll();
-
     res.status(200).send(final_results);
   } catch (e) {
     res.status(404).send(e.message);
   }
 });
 
-
-//SUBMIT THE USER ANSWER 2
+//Submit the user answer
 answersRouter.post("/submitAnswerNew", async (req: Request, res: Response) => {
   try {
     let user_answer_new: Basic_Ans = req.body.basic_ans;
@@ -45,7 +38,6 @@ answersRouter.post("/submitAnswerNew", async (req: Request, res: Response) => {
     res.status(404).send(e.message);
   }
 });
-//WORKED
 
 //Start new round
 answersRouter.post("/start", async (req: Request, res: Response) => {
@@ -58,9 +50,8 @@ answersRouter.post("/start", async (req: Request, res: Response) => {
     res.status(500).send(e.message);
   }
 });
-//WORKED
 
-//Stop accepting answers
+//Stop accepting answers and collect final results
 answersRouter.get("/stop", async (req: Request, res: Response) => {
   try {
     await AnswerService.stop_round();
@@ -70,19 +61,6 @@ answersRouter.get("/stop", async (req: Request, res: Response) => {
     res.status(500).send(e.message);
   }
 });
-//WORKED
-
-
-// answersRouter.post('/join', async(req: Request, res: Response) => {
-//   try {
-//     const parent: Answer = req.body.parentAnswer;
-//     const child: Answer = req.body.childAnswer;
-//     await AnswerService.join(parent,child);
-//     res.sendStatus(200);
-//   } catch (e) {
-//     res.status(500).send(e.message);
-//   }
-// });
 
 //Front end check status
 answersRouter.get("/checkactive", async (req: Request, res: Response) => {
@@ -94,4 +72,3 @@ answersRouter.get("/checkactive", async (req: Request, res: Response) => {
    res.status(404).send(e.message);
  }
 });
-//WORKED
