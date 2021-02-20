@@ -7,6 +7,7 @@
  import { UserAnswers } from "./answers.interface";
  import { BackendAnswer } from "./answer.interface";
  import { BackendAnswers } from "./answers.interface";
+ import { GroupMap } from "./answers.interface";
 
 /**
  * Router Definition
@@ -29,22 +30,33 @@ export const answersRouter = express.Router();
 });
 
 //Get all top answers
-answersRouter.get("/topsix", async (req: Request, res: Response) => {
-    try {
-    let topSix: BackendAnswers = await AnswerService.findTopSix();
-
-    res.status(200).send(topSix);
-  } catch (e) {
-    res.status(404).send(e.message);
-  }
-});
+// answersRouter.get("/topsix", async (req: Request, res: Response) => {
+//     try {
+//     let topSix: BackendAnswers = await AnswerService.findTopSix();
+//
+//     res.status(200).send(topSix);
+//   } catch (e) {
+//     res.status(404).send(e.message);
+//   }
+// });
 
 //SUBMIT THE USER ANSWER
-answersRouter.post("/submitAnswer", async (req: Request, res: Response) => {
-  try {
-    const user_answer: UserAnswer = req.body.user_answer;
+// answersRouter.post("/submitAnswer", async (req: Request, res: Response) => {
+//   try {
+//     const user_answer: UserAnswer = req.body.user_answer;
+//     await AnswerService.create_user(user_answer);
+//
+//     res.sendStatus(201);
+//   } catch (e) {
+//     res.status(404).send(e.message);
+//   }
+// });
 
-    await AnswerService.create_user(user_answer);
+//SUBMIT THE USER ANSWER 2
+answersRouter.post("/submitAnswerNew", async (req: Request, res: Response) => {
+  try {
+    let user_answer_new: string = req.body.string;
+    await AnswerService.create_user_new(user_answer_new);
 
     res.sendStatus(201);
   } catch (e) {
@@ -53,17 +65,17 @@ answersRouter.post("/submitAnswer", async (req: Request, res: Response) => {
 });
 
 //SUBMIT THE BACKEND ANSWER
-answersRouter.post("/submitAnswer", async (req: Request, res: Response) => {
-  try {
-    const backend_answer: BackendAnswer = req.body.backend_answer;
-
-    await AnswerService.create_backend(backend_answer);
-
-    res.sendStatus(201);
-  } catch (e) {
-    res.status(404).send(e.message);
-  }
-});
+// answersRouter.post("/submitTopAnswer", async (req: Request, res: Response) => {
+//   try {
+//     const backend_answer: BackendAnswer = req.body.backend_answer;
+//
+//     await AnswerService.create_backend(backend_answer);
+//
+//     res.sendStatus(201);
+//   } catch (e) {
+//     res.status(404).send(e.message);
+//   }
+// });
 
 //Start new round
 answersRouter.post("/start", async (req: Request, res: Response) => {
