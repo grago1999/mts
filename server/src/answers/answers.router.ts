@@ -102,6 +102,18 @@ answersRouter.get("/stop", async (req: Request, res: Response) => {
   }
 });
 
+
+answersRouter.post('/join', async(req: Request, res: Response) => {
+  try {
+    const parent: Answer = req.body.parentAnswer;
+    const child: Answer = req.body.childAnswer;
+    await AnswerService.join(parent,child);
+    res.sendStatus(200);
+  } catch (e) {
+    res.status(500).send(e.message);
+  }
+});
+
 //Front end check status
 itemsRouter.get("/checkactive", async (req: Request, res: Response) => {
  try {
@@ -111,4 +123,5 @@ itemsRouter.get("/checkactive", async (req: Request, res: Response) => {
  } catch (e) {
    res.status(404).send(e.message);
  }
+
 });

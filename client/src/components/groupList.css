@@ -1,0 +1,44 @@
+.list {
+	width: 80%;
+	height: 80%;
+	display: flex;
+	flex-direction: column;
+}
+
+.item {
+	display: flex;
+	flex-direction: row;
+	justify-content: left;
+	flex: 1;
+	width: 100%;
+	height: 50px;
+	text-align: center;
+}
+
+.item h1 {
+	margin: 40px;
+	display: inline-block;
+	height: 50px;
+	line-height: 50px;
+	width: 10%;
+	color: white;
+}
+
+.item button {
+	margin: 40px;
+	margin-left: 160px;
+	display: inline-block;
+	outline: none;
+	background: transparent;
+	border: none;
+	height: 50px;
+	line-height: 50px;
+	font-size: 38px;
+	width: 70%;
+	color: white;
+}
+
+.item button:hover {
+	cursor: pointer;
+	background-color: rgba(82, 82, 82, 0.2);
+}

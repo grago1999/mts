@@ -1,0 +1,30 @@
+.input {
+	border: none;
+	color: white;
+	background-color: rgba(82, 82, 82, 0.2);
+	font-size: 30px;
+	margin: 0 auto;
+	margin-top: 100px;
+	margin-bottom: 30px;
+	padding: 10px;
+	width: 50%;
+	display: block;
+	text-align: center;
+}
+
+.button {
+	all: unset;
+	margin: 0 auto;
+	margin-top: 30px;
+	margin-bottom: 30px;
+	display: flex;
+	width: 200px;
+	padding: 10px;
+	text-align: center;
+	justify-content: center;
+}
+
+.button:hover {
+	background-color: rgba(82, 82, 82, 0.2);
+	cursor: pointer;
+}

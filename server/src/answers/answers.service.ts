@@ -43,10 +43,19 @@ let answer_array: string[];
 //   }
 // };
 
+export const create = async (newAnswer: Answer): Promise<void> => {
+  const id = new Date().valueOf();
+  answers[id] = {
+    ...newAnswer,
+    id,
+    children: []
+  };
+};
 export const create_user_new = async (newAnswer: string): Promise<void> => {
   if(current_round.active == true) {
     answer_array.push(newAnswer)
   }
+
 };
 
 // export const create_backend = async (newAnswer: BackendAnswer): Promise<void> => {
@@ -72,3 +81,12 @@ export const stop_round = async (newRound: Round): Promise<void> => {
 export const checkIfActive = async (): Promise<boolean> => {
  return current_round.active;
 };
+
+export const join = async (parent: Answer, child: Answer): Promise<void> => {
+  const newParent = await find(parent.id);
+  const newChild = await find(child.id);
+  // First check to make sure the parent doesn't contain the child
+  if (!newParent.children.some(answer => answer.id === newChild.id)) {
+    parent.children.push(newChild);
+  }
+}
