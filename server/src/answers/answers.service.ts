@@ -24,9 +24,9 @@ let answer_array: string[] = ["cactus", "checling"];
  * Service Methods
  */
 
- export const findAll = async (): Promise<TopAnswers> => {
+ export const findAll = async (): Promise<TopAnswers[]> => {
    unsorted_groups = WordProcessing.returnGroups(answer_array);
-   let final_tally: TopAnswers = WordProcessing.topN(unsorted_groups,6);
+   let final_tally: TopAnswers[] = WordProcessing.topN(unsorted_groups,6);
    //let final_tally: TopAnswers = {name: "string", count:2};
    return final_tally;
 };

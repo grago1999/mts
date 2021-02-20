@@ -4,3 +4,4 @@ server/package-lock.json
 server/dist
 server/webpack.config.ts
 server/dist/index.js
+server/package-lock.json

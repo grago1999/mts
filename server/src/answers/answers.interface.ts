@@ -15,5 +15,5 @@ export interface GroupMap {
 
 export interface TopAnswers {
   name: string;
-  count:number;
+  count: number;
 }

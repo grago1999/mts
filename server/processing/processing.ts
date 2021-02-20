@@ -1,3 +1,5 @@
+import { TopAnswers } from "../src/answers/answers.interface";
+
 var natural = require('natural');
 
 
@@ -57,6 +59,7 @@ function isSimilar(first : string, second : string, sharedLetterThreshold : numb
 }
 
 // function that gets the top n answers from the returnGroups function
+<<<<<<< Updated upstream
 //HAS ERROR
 // export function topN(groups : {[name : string] : number}, n : number) : {name : string, count: number}[] {
 //   var props = Object.keys(groups).map(function(name) {
@@ -65,12 +68,28 @@ function isSimilar(first : string, second : string, sharedLetterThreshold : numb
 //   props.sort(function(w1, w2) { return w1.count - w2.count;});
 //   return props.slice(0, n);
 // }
+=======
+export function topN(groups : {[name : string] : number}, n : number) : TopAnswers[] {
+  var props = Object.keys(groups).map(function(name) {
+    // @ts-ignore
+    return {name : name, count : this[name]};
+  }, groups);
+  props.sort(function(w1, w2) { return w2.count - w1.count;});
+  return props.slice(0, n);
+}
+>>>>>>> Stashed changes
 
 // big function that takes in all the input and slots them into groups
 export function returnGroups(input : string[]) : {[name : string] : number} {
   var out : {[name : string] : number} = {};
   var stringGroups : string[][] = [];
   var tokenizer = new natural.WordTokenizer();
+<<<<<<< Updated upstream
+=======
+  for (let str in stringGroups) {
+    out[str] = 0;
+  }
+>>>>>>> Stashed changes
   // iterate through strings
   for (let str of input) {
     str = str.toLowerCase();
