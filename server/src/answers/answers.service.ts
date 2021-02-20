@@ -1,36 +1,46 @@
 /**
  * Data Model Interfaces
  */
- import { Answer } from "./answer.interface";
- import { Answers } from "./answers.interface";
+ import { UserAnswer } from "./answer.interface";
+ import { UserAnswers } from "./answers.interface";
+ import { BackendAnswer } from "./answer.interface";
+ import { BackendAnswers } from "./answers.interface";
+ import { GroupMap } from "./answers.interface";
+ import { TopAnswers } from "./answers.interface";
+ import * as WordProcessing from "./answers.service";
 
 /**
  * In-Memory Store
  */
-const answers: Answers = {
-  1: {
-    id: 1,
-    name: "cactus",
-    score: 999,
-    rank: 1
-   }
-};
+let user_answers: UserAnswers = {};
+let backend_answers: BackendAnswers = {};
+let current_round: Round = {question: "Init", active: false};
+let unsorted_groups: GroupMap = {};
+let answer_array: string[];
+
 /**
  * Service Methods
  */
- export const findAll = async (): Promise<Answers> => {
-  return answers;
+ export const findAll = async (): Promise<TopAnswers> => {
+   unsorted_groups = WordProcessing.returnGroups(answer_array);
+   let final_tally: TopAnswers = WordProcessing.topN(unsorted_groups,6);
+   return final_tally;
 };
 
-export const find = async (id: number): Promise<Answer> => {
-  const record: Answer = answers[id];
+// export const findTopSix = async (): Promise<Answers> => {
+//  return backend_answers;
+// };
 
-  if (record) {
-    return record;
-  }
 
-  throw new Error("No record found");
-};
+// export const create_user = async (newAnswer: UserAnswer): Promise<void> => {
+//   if(current_round.active == true) {
+//     const id = new Date().valueOf();
+//     user_answers[id] = {
+//       ...newAnswer,
+//       id
+//     };
+//   }
+// };
 
 export const create = async (newAnswer: Answer): Promise<void> => {
   const id = new Date().valueOf();
@@ -40,25 +50,35 @@ export const create = async (newAnswer: Answer): Promise<void> => {
     children: []
   };
 };
-
-export const update = async (updatedAnswer: Answer): Promise<void> => {
-  if (answers[updatedAnswer.id]) {
-    answers[updatedAnswer.id] = updatedAnswer;
-    return;
+export const create_user_new = async (newAnswer: string): Promise<void> => {
+  if(current_round.active == true) {
+    answer_array.push(newAnswer)
   }
 
-  throw new Error("No record found to update");
 };
 
-export const remove = async (id: number): Promise<void> => {
-  const record: Answer = answers[id];
+// export const create_backend = async (newAnswer: BackendAnswer): Promise<void> => {
+//   if(current_round.active == true) {
+//     const id = new Date().valueOf();
+//     user_answers[id] = {
+//       ...newAnswer,
+//       id
+//     };
+//   }
+// };
 
-  if (record) {
-    delete answers[id];
-    return;
-  }
+export const create_round = async (newRound: Round): Promise<void> => {
+  answer_array.length = 0;
+  current_round.question = newRound.question;
+  current_round.active = true;
+};
 
-  throw new Error("No record found to delete");
+export const stop_round = async (newRound: Round): Promise<void> => {
+  current_round.active = false;
+};
+
+export const checkIfActive = async (): Promise<boolean> => {
+ return current_round.active;
 };
 
 export const join = async (parent: Answer, child: Answer): Promise<void> => {
