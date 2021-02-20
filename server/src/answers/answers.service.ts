@@ -7,7 +7,7 @@
  import { BackendAnswers } from "./answers.interface";
  import { GroupMap } from "./answers.interface";
  import { TopAnswers } from "./answers.interface";
- import * as WordProcessing from "./answers.service";
+ //import * as WordProcessing from "./answers.service";
 
 /**
  * In-Memory Store
@@ -22,8 +22,9 @@ let answer_array: string[];
  * Service Methods
  */
  export const findAll = async (): Promise<TopAnswers> => {
-   unsorted_groups = WordProcessing.returnGroups(answer_array);
-   let final_tally: TopAnswers = WordProcessing.topN(unsorted_groups,6);
+   //unsorted_groups = WordProcessing.returnGroups(answer_array);
+   //let final_tally: TopAnswers = WordProcessing.topN(unsorted_groups,6);
+   let final_tally: TopAnswers;
    return final_tally;
 };
 

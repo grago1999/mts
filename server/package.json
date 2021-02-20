@@ -4,7 +4,9 @@
   "description": "mts server",
   "main": "index.ts",
   "scripts": {
-    "test": "test"
+    "test": "test",
+    "start": "node dist/index",
+    "webpack": "webpack --config webpack.config.ts"
   },
   "author": "mts",
   "license": "ISC",
