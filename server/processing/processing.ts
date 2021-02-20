@@ -130,7 +130,7 @@ export function returnGroups(input : string[]) : {[name : string] : number} {
   return realOut;
 }
 
-// console.log(isSimilar("csgo", "csgi") === true ? "success" : "fail")
-// console.log(isSimilar("csgo", "cshd") === false ? "success" : "fail")
-// console.log(isSimilar("faang", "fang") === true ? "success" : "fail")
-// console.log(isSimilar("faang", "fanng") === false ? "success" : "fail")
+ // console.log(isSimilar("csgo", "csgi") === true ? "success" : "fail")
+ // console.log(isSimilar("csgo", "cshd") === false ? "success" : "fail")
+ // console.log(isSimilar("faang", "fang") === true ? "success" : "fail")
+ // console.log(isSimilar("faang", "fanng") === false ? "success" : "fail")
