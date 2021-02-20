@@ -10,33 +10,61 @@ function fitToGroups(word : string, groups : {[name : string] : number}) {
   return word;
 }
 
+function isSimilar(first : string, second : string) : boolean {
+  return false;
+}
+
+
 // big function that takes in all the input and slots them into groups
 export function returnGroups(input : string[]) : {[name : string] : number} {
   var out : {[name : string] : number} = {};
+  var stringGroups : string[][] = [];
   var tokenizer = new natural.WordTokenizer();
   for (let str of input) {
     str = str.toLowerCase();
     // we don't want to completely ignore whitespace, but we want the
     // whitespace to be consistent, so we split the string and then rejoin it
-    str = tokenizer.tokenize(str).join(" ")
+    str = tokenizer.tokenize(str).join(" ");
     if (typeof(out[str]) === 'undefined') {
-      if (isAcronym(str)) {
-        out[str] = 1;
-      } else {
-        // Technically this is the greedy solution where we build groups as we go along
-        // but going to have this temporarily here
-        group = fitToGroups(str, out);
-        if (group === str) {
-          out[str] = 1;
-        } else {
-          out[str] = out[str] + 1;
+      out[str] = 1;
+      // note that this is a little arbitrary/greedy in terms of grouping words
+      // together
+      var strGroup : string[] = [];
+      var found = false;
+      for (let group in stringGroups) {
+        for (let word in group) {
+          if (isSimilar(str, word)) {
+            found = true;
+            strGroup = group;
+            break;
+          }
         }
+        if (found) {
+          break;
+        }
+      }
+      strGroup.push(str);
+      if (!found) {
+        stringGroups.push(strGroup);
       }
     } else {
       out[str] = out[str] + 1;
     }
   }
-  // before we return in final solution, we will "merge" existing groups if they
-  // are similar enough and then throw away outliers based on a threshold
-  return out;
+  var realOut : {[name : string] : number} = {};
+  for (let strGroup in stringGroups) {
+    var bestStr = "";
+    var bestScore = 0;
+    var total = 0;
+    for (let str in strGroup) {
+      total = out[str] + total;
+      if (out[str] > bestScore) {
+        bestScore = out[str];
+        bestStr = str;
+      }
+    }
+    realOut[bestStr] = total;
+  }
+
+  return realOut;
 }
