@@ -1,3 +1,4 @@
+import { group } from "console"
 import React, { useState, useEffect } from "react"
 import "./groupList.css"
 
@@ -64,15 +65,11 @@ function GroupList() {
 	})
 
 	const show = (id: string) => {
-		let newGroups: GroupItem[] = []
-		groups.forEach(group => {
+		let newGroups: GroupItem[] = groups.map(group => {
 			if (group.id === id) {
-				const newGroup = group
-				newGroup.hidden = false
-				newGroups.push(newGroup)
-			} else {
-				newGroups.push(group)
+				group.hidden = false
 			}
+			return group
 		})
 		setGroups(newGroups)
 	}

@@ -17,11 +17,7 @@ function QuestionManager() {
 		setCurrentQuestion("get from api")
 	}
 
-	useEffect(() => {
-		if (currentQuestion === null) {
-			getCurrentQuestion()
-		}
-	})
+	useEffect(() => getCurrentQuestion(), [currentQuestion])
 
 	return (
 		<div id="questions">
