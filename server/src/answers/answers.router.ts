@@ -64,3 +64,14 @@ answersRouter.post("/start", async (req: Request, res: Response) => {
     res.status(500).send(e.message);
   }
 });
+
+answersRouter.post('/join', async(req: Request, res: Response) => {
+  try {
+    const from: Answer = req.body.answerFrom;
+    const to: Answer = req.body.answerTo;
+    await AnswerService.join(from,to);
+    res.sendStatus(200);
+  } catch (e) {
+    res.status(500).send(e.message);
+  }
+});

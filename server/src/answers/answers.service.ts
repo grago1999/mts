@@ -34,9 +34,10 @@ export const find = async (id: number): Promise<Answer> => {
 
 export const create = async (newAnswer: Answer): Promise<void> => {
   const id = new Date().valueOf();
-  items[id] = {
+  answers[id] = {
     ...newAnswer,
-    id
+    id,
+    children: []
   };
 };
 
@@ -59,3 +60,12 @@ export const remove = async (id: number): Promise<void> => {
 
   throw new Error("No record found to delete");
 };
+
+export const join = async (from: Answer, to: Answer): Promise<void> => {
+  const parent = await find(to.id);
+  const child = await find(from.id);
+  // First check to make sure the parent doesn't contain the child
+  if (!parent.children.some(answer => answer.id === child.id)) {
+    parent.children.push(child);
+  }
+}

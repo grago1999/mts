@@ -3,4 +3,5 @@ export interface Answer {
   name: string;
   score: number;
   rank: number;
+  children: Answer[];
 }
