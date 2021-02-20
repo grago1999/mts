@@ -1,2 +1,7 @@
 client/node_modules
 server/node_modules
+extension/extensions-boilerplate/node_modules
+extension/extensions-boilerplate/__mocks__
+extension/extensions-boilerplate/coverage
+extension/extensions-boilerplate/dist
+
