@@ -9,7 +9,7 @@
  import { TopAnswers } from "./answers.interface";
  import { Round } from "./answer.interface";
  import { Basic_Ans } from "./answer.interface";
- //import * as WordProcessing from "./answers.service";
+ import * as WordProcessing from "../../processing/processing";
 
 /**
  * In-Memory Store
@@ -24,16 +24,16 @@ let answer_array: string[] = ["cactus", "checling"];
  * Service Methods
  */
 
-//  export const findAll = async (): Promise<TopAnswers> => {
-//    //unsorted_groups = WordProcessing.returnGroups(answer_array);
-//    //let final_tally: TopAnswers = WordProcessing.topN(unsorted_groups,6);
-//    let final_tally: TopAnswers = {name: "string", count:2};
-//    return final_tally;
-// };
-
-export const findAll = async (): Promise<string[]> => {
-   return answer_array;
+ export const findAll = async (): Promise<TopAnswers> => {
+   unsorted_groups = WordProcessing.returnGroups(answer_array);
+   let final_tally: TopAnswers = WordProcessing.topN(unsorted_groups,6);
+   //let final_tally: TopAnswers = {name: "string", count:2};
+   return final_tally;
 };
+
+// export const findAll = async (): Promise<string[]> => {
+//    return answer_array;
+// };
 
 // export const create = async (newAnswer: Answer): Promise<void> => {
 //   const id = new Date().valueOf();
