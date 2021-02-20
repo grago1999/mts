@@ -26,10 +26,11 @@ export default class App extends React.Component{
             return
         }
 
-        fetch("http://localhost:1000/submitAnswer", {
+        fetch("http://localhost:7000/submitAnswerNew", {
             method: "POST",
+            "Content-Type": "application/json",
             body: {
-                answer
+                string: answer
             }
         })
         .then(() => this.setState({ hasSubmittedAnswer: true, answer }))
