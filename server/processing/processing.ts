@@ -15,7 +15,13 @@ const getLetterMap = (str: string): Map<string, string> => {
   return letters
 }
 
-function isSimilar(first : string, second : string, sharedLetterThreshold : number = 0.8, letterCountThreshold : number = 0.75) : boolean {
+function isSimilar(first : string, second : string, sharedLetterThreshold : number = 0.8, letterCountThreshold : number = 0.75, editThreshold : number = 0.25) : boolean {
+  // Basic edit distance, except transposition has a cost of 1
+  var edits : number = natural.DamerauLevenshteinDistance(first, second);
+  if (edits/(Math.max(first.length, second.length)) <= (editThreshold + 0.0001)) {
+    return true;
+  }
+
   if (first.length < 5) {
     sharedLetterThreshold *= 0.6
   }
@@ -125,7 +131,7 @@ export function returnGroups(input : string[]) : {[name : string] : number} {
   return realOut;
 }
 
-// console.log(isSimilar("csgo", "csgi") === true ? "success" : "fail")
-// console.log(isSimilar("csgo", "cshd") === false ? "success" : "fail")
-// console.log(isSimilar("faang", "fang") === true ? "success" : "fail")
-// console.log(isSimilar("faang", "fanng") === false ? "success" : "fail")
+ // console.log(isSimilar("csgo", "csgi") === true ? "success" : "fail")
+ // console.log(isSimilar("csgo", "cshd") === false ? "success" : "fail")
+ // console.log(isSimilar("faang", "fang") === true ? "success" : "fail")
+ // console.log(isSimilar("faang", "fanng") === false ? "success" : "fail")
