@@ -1,61 +1,60 @@
 /**
  * Data Model Interfaces
  */
- import { Answer } from "./answer.interface";
- import { Answers } from "./answers.interface";
+ import { UserAnswer } from "./answer.interface";
+ import { UserAnswers } from "./answers.interface";
+ import { BackendAnswer } from "./answer.interface";
+ import { BackendAnswers } from "./answers.interface";
 
 /**
  * In-Memory Store
  */
-const answers: Answers = {
-  1: {
-    id: 1,
-    name: "cactus",
-    score: 999,
-    rank: 1
-   }
-};
+let user_answers: UserAnswers = {};
+let backend_answers: BackendAnswers = {};
+let current_round: Round = {question: "Init", active: false};
+
+let
 /**
  * Service Methods
  */
  export const findAll = async (): Promise<Answers> => {
-  return answers;
+  return user_answers;
 };
 
-export const find = async (id: number): Promise<Answer> => {
-  const record: Answer = answers[id];
+export const findTopSix = async (): Promise<Answers> => {
+ return backend_answers;
+};
 
-  if (record) {
-    return record;
+
+export const create_user = async (newAnswer: UserAnswer): Promise<void> => {
+  if(current_round.active == true) {
+    const id = new Date().valueOf();
+    user_answers[id] = {
+      ...newAnswer,
+      id
+    };
   }
-
-  throw new Error("No record found");
 };
 
-export const create = async (newAnswer: Answer): Promise<void> => {
-  const id = new Date().valueOf();
-  items[id] = {
-    ...newAnswer,
-    id
-  };
-};
-
-export const update = async (updatedAnswer: Answer): Promise<void> => {
-  if (answers[updatedAnswer.id]) {
-    answers[updatedAnswer.id] = updatedAnswer;
-    return;
+export const create_backend = async (newAnswer: BackendAnswer): Promise<void> => {
+  if(current_round.active == true) {
+    const id = new Date().valueOf();
+    user_answers[id] = {
+      ...newAnswer,
+      id
+    };
   }
-
-  throw new Error("No record found to update");
 };
 
-export const remove = async (id: number): Promise<void> => {
-  const record: Answer = answers[id];
+export const create_round = async (newRound: Round): Promise<void> => {
+  current_round.question = newRound.question;
+  current_round.active = true;
+};
 
-  if (record) {
-    delete answers[id];
-    return;
-  }
+export const stop_round = async (newRound: Round): Promise<void> => {
+  current_round.active = false;
+};
 
-  throw new Error("No record found to delete");
+export const checkIfActive = async (): Promise<boolean> => {
+ return current_round.active;
 };
