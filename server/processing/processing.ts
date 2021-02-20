@@ -1,3 +1,5 @@
+import { TopAnswers } from "../src/answers/answers.interface";
+
 var natural = require('natural');
 const csv = require('csv-parser');
 const fs = require('fs');
@@ -63,8 +65,9 @@ function isSimilar(first : string, second : string, sharedLetterThreshold : numb
 }
 
 // function that gets the top n answers from the returnGroups function
-export function topN(groups : {[name : string] : number}, n : number) : {name : string, count: number}[] {
+export function topN(groups : {[name : string] : number}, n : number) : TopAnswers[] {
   var props = Object.keys(groups).map(function(name) {
+    // @ts-ignore
     return {name : name, count : this[name]};
   }, groups);
   props.sort(function(w1, w2) { return w2.count - w1.count;});

@@ -24,7 +24,7 @@ export const answersRouter = express.Router();
 //Get all user answers, to be used in processing
  answersRouter.get("/allanswers", async (req: Request, res: Response) => {
   try {
-    const final_results: TopAnswers = await AnswerService.findAll();
+    const final_results: TopAnswers[] = await AnswerService.findAll();
     //const final_results: string[] = await AnswerService.findAll();
 
     res.status(200).send(final_results);
@@ -64,7 +64,7 @@ answersRouter.post("/start", async (req: Request, res: Response) => {
 answersRouter.get("/stop", async (req: Request, res: Response) => {
   try {
     await AnswerService.stop_round();
-    const final_results: TopAnswers = await AnswerService.findAll();
+    const final_results: TopAnswers[] = await AnswerService.findAll();
     res.sendStatus(200);
   } catch (e) {
     res.status(500).send(e.message);
