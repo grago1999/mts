@@ -1,7 +1,6 @@
 client/node_modules
 server/node_modules
-extension/extensions-boilerplate/node_modules
-extension/extensions-boilerplate/__mocks__
-extension/extensions-boilerplate/coverage
-extension/extensions-boilerplate/dist
-
+twitch-extension/extensions-boilerplate/node_modules
+twitch-extension/extensions-boilerplate/__mocks__
+twitch-extension/extensions-boilerplate/coverage
+twitch-extension/extensions-boilerplate/dist
