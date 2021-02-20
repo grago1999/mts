@@ -10,6 +10,10 @@ function QuestionManager() {
 		input.value = ""
 	}
 
+	const stop = () => {
+
+	}
+
 	const getCurrentQuestion = () => {
 		// fetch("http://localhost:1000")
 		// .then(response => response.json())
@@ -22,8 +26,11 @@ function QuestionManager() {
 	return (
 		<div id="questions">
 			<input id="question" placeholder="Next Question" className="input" />
-			<button id="submit" className="submit" onClick={submit}>{"Start Round"}</button>
-			Current Quesiton: {currentQuestion}
+			<div id="buttons" className="buttons">
+				{!currentQuestion && <button id="submit" className="button" onClick={submit}>{"Start Round"}</button>}
+				{currentQuestion && <button id="stop" className="button" onClick={stop}>{"Stop Round"}</button>}
+			</div>
+			<p>Current Quesiton: {currentQuestion}</p>
 		</div>
 	)
 }
