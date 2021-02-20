@@ -3,10 +3,12 @@ import logo from './logo.svg';
 import './App.css';
 
 import GroupList from "./components/GroupList"
+import AdminGroupList from "./components/AdminGroupList"
+import QuestionManager from "./components/QuestionManager"
 
 const PlayTab = () => {
   return (
-    <div>
+    <div id="play" className="tab">
       <h1>Question: What is the best gaming platform?</h1>
       <GroupList />
     </div>
@@ -14,7 +16,10 @@ const PlayTab = () => {
 }
 
 const AdminTab = () => {
-  return <div></div>
+  return <div id="admin" className="tab">
+    <AdminGroupList />
+    <QuestionManager />
+  </div>
 }
 
 function App() {
