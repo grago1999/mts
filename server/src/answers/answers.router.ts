@@ -8,6 +8,8 @@
  import { BackendAnswer } from "./answer.interface";
  import { BackendAnswers } from "./answers.interface";
  import { GroupMap } from "./answers.interface";
+ import { TopAnswers } from "./answers.interface";
+ import { Round } from "./answer.interface";
 
 /**
  * Router Definition
@@ -19,38 +21,16 @@ export const answersRouter = express.Router();
  */
 
 //Get all user answers, to be used in processing
- itemsRouter.get("/allanswers", async (req: Request, res: Response) => {
+ answersRouter.get("/allanswers", async (req: Request, res: Response) => {
   try {
-    const user_input: Items = await ItemService.findAll();
+    //const final_results: TopAnswers = await AnswerService.findAll();
+    const final_results: string[] = await AnswerService.findAll();
 
-    res.status(200).send(items);
+    res.status(200).send(final_results);
   } catch (e) {
     res.status(404).send(e.message);
   }
 });
-
-//Get all top answers
-// answersRouter.get("/topsix", async (req: Request, res: Response) => {
-//     try {
-//     let topSix: BackendAnswers = await AnswerService.findTopSix();
-//
-//     res.status(200).send(topSix);
-//   } catch (e) {
-//     res.status(404).send(e.message);
-//   }
-// });
-
-//SUBMIT THE USER ANSWER
-// answersRouter.post("/submitAnswer", async (req: Request, res: Response) => {
-//   try {
-//     const user_answer: UserAnswer = req.body.user_answer;
-//     await AnswerService.create_user(user_answer);
-//
-//     res.sendStatus(201);
-//   } catch (e) {
-//     res.status(404).send(e.message);
-//   }
-// });
 
 //SUBMIT THE USER ANSWER 2
 answersRouter.post("/submitAnswerNew", async (req: Request, res: Response) => {
@@ -64,24 +44,9 @@ answersRouter.post("/submitAnswerNew", async (req: Request, res: Response) => {
   }
 });
 
-//SUBMIT THE BACKEND ANSWER
-// answersRouter.post("/submitTopAnswer", async (req: Request, res: Response) => {
-//   try {
-//     const backend_answer: BackendAnswer = req.body.backend_answer;
-//
-//     await AnswerService.create_backend(backend_answer);
-//
-//     res.sendStatus(201);
-//   } catch (e) {
-//     res.status(404).send(e.message);
-//   }
-// });
-
 //Start new round
 answersRouter.post("/start", async (req: Request, res: Response) => {
   try {
-    user_answers.clear();
-    backend_answers.clear();
     const round: Round = req.body.round;
     await AnswerService.create_round(round);
 
@@ -94,8 +59,7 @@ answersRouter.post("/start", async (req: Request, res: Response) => {
 //Stop accepting answers
 answersRouter.get("/stop", async (req: Request, res: Response) => {
   try {
-    await AnswerService.stop_round(round);
-
+    await AnswerService.stop_round();
     res.sendStatus(200);
   } catch (e) {
     res.status(500).send(e.message);
@@ -103,23 +67,23 @@ answersRouter.get("/stop", async (req: Request, res: Response) => {
 });
 
 
-answersRouter.post('/join', async(req: Request, res: Response) => {
-  try {
-    const parent: Answer = req.body.parentAnswer;
-    const child: Answer = req.body.childAnswer;
-    await AnswerService.join(parent,child);
-    res.sendStatus(200);
-  } catch (e) {
-    res.status(500).send(e.message);
-  }
-});
+// answersRouter.post('/join', async(req: Request, res: Response) => {
+//   try {
+//     const parent: Answer = req.body.parentAnswer;
+//     const child: Answer = req.body.childAnswer;
+//     await AnswerService.join(parent,child);
+//     res.sendStatus(200);
+//   } catch (e) {
+//     res.status(500).send(e.message);
+//   }
+// });
 
 //Front end check status
-itemsRouter.get("/checkactive", async (req: Request, res: Response) => {
+answersRouter.get("/checkactive", async (req: Request, res: Response) => {
  try {
-   const game_status: boolean = await ItemService.checkIfActive();
+   const game_status: boolean = await AnswerService.checkIfActive();
 
-   res.status(200).send(items);
+   res.status(200).send(game_status);
  } catch (e) {
    res.status(404).send(e.message);
  }

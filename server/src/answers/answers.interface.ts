@@ -3,9 +3,9 @@ import { UserAnswer } from "./answer.interface";
 
 export interface UserAnswers {
   [key: number]: UserAnswer;
+}
 
-
-  export interface BackendAnswers {
+export interface BackendAnswers {
     [key: number]: BackendAnswer;
   }
 

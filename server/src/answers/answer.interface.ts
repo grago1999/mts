@@ -8,7 +8,6 @@ export interface BackendAnswer {
   name: string;
   score: number;
   rank: number;
-  children: Answer[];
 }
 
 export interface Round {
