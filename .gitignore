@@ -8,3 +8,4 @@ twitch-extension/extensions-boilerplate/dist
 server/package-lock.json
 server/dist
 server/webpack.config.ts
+server/dist/index.js
