@@ -57,13 +57,14 @@ function isSimilar(first : string, second : string, sharedLetterThreshold : numb
 }
 
 // function that gets the top n answers from the returnGroups function
-export function topN(groups : {[name : string] : number}, n : number) : {name : string, count: number}[] {
-  var props = Object.keys(groups).map(function(name) {
-    return {name : name, count : this[key]};
-  }, groups);
-  props.sort(function(w1, w2) { return w1.count - w2.count;});
-  return props.slice(0, n);
-}
+//HAS ERROR
+// export function topN(groups : {[name : string] : number}, n : number) : {name : string, count: number}[] {
+//   var props = Object.keys(groups).map(function(name) {
+//     return {name : name, count : this[key]};
+//   }, groups);
+//   props.sort(function(w1, w2) { return w1.count - w2.count;});
+//   return props.slice(0, n);
+// }
 
 // big function that takes in all the input and slots them into groups
 export function returnGroups(input : string[]) : {[name : string] : number} {

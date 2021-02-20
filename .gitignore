@@ -6,3 +6,5 @@ twitch-extension/extensions-boilerplate/__mocks__
 twitch-extension/extensions-boilerplate/coverage
 twitch-extension/extensions-boilerplate/dist
 server/package-lock.json
+server/dist
+server/webpack.config.ts

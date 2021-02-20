@@ -22,7 +22,7 @@
 /******/
 /******/ 	var hotApplyOnUpdate = true;
 /******/ 	// eslint-disable-next-line no-unused-vars
-/******/ 	var hotCurrentHash = "db27d61f7c0a1df2b390";
+/******/ 	var hotCurrentHash = "68926fae00a2083c41e3";
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule;
@@ -818,6 +818,18 @@
 /************************************************************************/
 /******/ ({
 
+/***/ "./index.ts":
+/*!******************!*\
+  !*** ./index.ts ***!
+  \******************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+eval("\r\nvar __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {\r\n    if (k2 === undefined) k2 = k;\r\n    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });\r\n}) : (function(o, m, k, k2) {\r\n    if (k2 === undefined) k2 = k;\r\n    o[k2] = m[k];\r\n}));\r\nvar __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {\r\n    Object.defineProperty(o, \"default\", { enumerable: true, value: v });\r\n}) : function(o, v) {\r\n    o[\"default\"] = v;\r\n});\r\nvar __importStar = (this && this.__importStar) || function (mod) {\r\n    if (mod && mod.__esModule) return mod;\r\n    var result = {};\r\n    if (mod != null) for (var k in mod) if (k !== \"default\" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);\r\n    __setModuleDefault(result, mod);\r\n    return result;\r\n};\r\nvar __importDefault = (this && this.__importDefault) || function (mod) {\r\n    return (mod && mod.__esModule) ? mod : { \"default\": mod };\r\n};\r\nObject.defineProperty(exports, \"__esModule\", { value: true });\r\n/**\r\n * Required External Modules\r\n */\r\nconst dotenv = __importStar(__webpack_require__(/*! dotenv */ \"dotenv\"));\r\nconst express_1 = __importDefault(__webpack_require__(/*! express */ \"express\"));\r\nconst cors_1 = __importDefault(__webpack_require__(/*! cors */ \"cors\"));\r\nconst helmet_1 = __importDefault(__webpack_require__(/*! helmet */ \"helmet\"));\r\nconst answers_router_1 = __webpack_require__(/*! /src/answers/answers.router */ \"./src/answers/answers.router.ts\");\r\ndotenv.config();\r\n/**\r\n * App Variables\r\n */\r\nif (!process.env.PORT) {\r\n    process.exit(1);\r\n}\r\nconst PORT = parseInt(process.env.PORT, 10);\r\nconst app = express_1.default();\r\n/**\r\n *  App Configuration\r\n */\r\napp.use(helmet_1.default());\r\napp.use(cors_1.default());\r\napp.use(express_1.default.json());\r\napp.use(\"/answers\", answers_router_1.answersRouter);\r\n/**\r\n * Server Activation\r\n */\r\nconst server = app.listen(PORT, () => {\r\n    console.log(`Listening on port ${PORT}`);\r\n});\r\nif (true) {\r\n    module.hot.accept();\r\n    module.hot.dispose(() => server.close());\r\n}\r\n\n\n//# sourceURL=webpack:///./index.ts?");
+
+/***/ }),
+
 /***/ "./node_modules/webpack/hot/log-apply-result.js":
 /*!*****************************************!*\
   !*** (webpack)/hot/log-apply-result.js ***!
@@ -851,14 +863,82 @@ eval("/* WEBPACK VAR INJECTION */(function(__resourceQuery) {/*\n\tMIT License h
 
 /***/ }),
 
-/***/ 0:
-/*!*******************************************!*\
-  !*** multi webpack/hot/poll?100 index.ts ***!
-  \*******************************************/
+/***/ "./src/answers/answers.router.ts":
+/*!***************************************!*\
+  !*** ./src/answers/answers.router.ts ***!
+  \***************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("__webpack_require__(/*! webpack/hot/poll?100 */\"./node_modules/webpack/hot/poll.js?100\");\n!(function webpackMissingModule() { var e = new Error(\"Cannot find module 'index.ts'\"); e.code = 'MODULE_NOT_FOUND'; throw e; }());\n\n\n//# sourceURL=webpack:///multi_webpack/hot/poll?");
+"use strict";
+eval("\r\nvar __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {\r\n    if (k2 === undefined) k2 = k;\r\n    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });\r\n}) : (function(o, m, k, k2) {\r\n    if (k2 === undefined) k2 = k;\r\n    o[k2] = m[k];\r\n}));\r\nvar __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {\r\n    Object.defineProperty(o, \"default\", { enumerable: true, value: v });\r\n}) : function(o, v) {\r\n    o[\"default\"] = v;\r\n});\r\nvar __importStar = (this && this.__importStar) || function (mod) {\r\n    if (mod && mod.__esModule) return mod;\r\n    var result = {};\r\n    if (mod != null) for (var k in mod) if (k !== \"default\" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);\r\n    __setModuleDefault(result, mod);\r\n    return result;\r\n};\r\nvar __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {\r\n    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }\r\n    return new (P || (P = Promise))(function (resolve, reject) {\r\n        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }\r\n        function rejected(value) { try { step(generator[\"throw\"](value)); } catch (e) { reject(e); } }\r\n        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }\r\n        step((generator = generator.apply(thisArg, _arguments || [])).next());\r\n    });\r\n};\r\nvar __importDefault = (this && this.__importDefault) || function (mod) {\r\n    return (mod && mod.__esModule) ? mod : { \"default\": mod };\r\n};\r\nObject.defineProperty(exports, \"__esModule\", { value: true });\r\nexports.answersRouter = void 0;\r\n/**\r\n * Required External Modules and Interfaces\r\n */\r\nconst express_1 = __importDefault(__webpack_require__(/*! express */ \"express\"));\r\nconst AnswerService = __importStar(__webpack_require__(/*! ./answers.service */ \"./src/answers/answers.service.ts\"));\r\n/**\r\n * Router Definition\r\n */\r\nexports.answersRouter = express_1.default.Router();\r\n/**\r\n * Controller Definitions\r\n */\r\n//Get all user answers, to be used in processing\r\nexports.answersRouter.get(\"/allanswers\", (req, res) => __awaiter(void 0, void 0, void 0, function* () {\r\n    try {\r\n        //const final_results: TopAnswers = await AnswerService.findAll();\r\n        const final_results = yield AnswerService.findAll();\r\n        res.status(200).send(final_results);\r\n    }\r\n    catch (e) {\r\n        res.status(404).send(e.message);\r\n    }\r\n}));\r\n//SUBMIT THE USER ANSWER 2\r\nexports.answersRouter.post(\"/submitAnswerNew\", (req, res) => __awaiter(void 0, void 0, void 0, function* () {\r\n    try {\r\n        let user_answer_new = req.body.string;\r\n        yield AnswerService.create_user_new(user_answer_new);\r\n        res.sendStatus(201);\r\n    }\r\n    catch (e) {\r\n        res.status(404).send(e.message);\r\n    }\r\n}));\r\n//Start new round\r\nexports.answersRouter.post(\"/start\", (req, res) => __awaiter(void 0, void 0, void 0, function* () {\r\n    try {\r\n        const round = req.body.round;\r\n        yield AnswerService.create_round(round);\r\n        res.sendStatus(200);\r\n    }\r\n    catch (e) {\r\n        res.status(500).send(e.message);\r\n    }\r\n}));\r\n//Stop accepting answers\r\nexports.answersRouter.get(\"/stop\", (req, res) => __awaiter(void 0, void 0, void 0, function* () {\r\n    try {\r\n        yield AnswerService.stop_round();\r\n        res.sendStatus(200);\r\n    }\r\n    catch (e) {\r\n        res.status(500).send(e.message);\r\n    }\r\n}));\r\n// answersRouter.post('/join', async(req: Request, res: Response) => {\r\n//   try {\r\n//     const parent: Answer = req.body.parentAnswer;\r\n//     const child: Answer = req.body.childAnswer;\r\n//     await AnswerService.join(parent,child);\r\n//     res.sendStatus(200);\r\n//   } catch (e) {\r\n//     res.status(500).send(e.message);\r\n//   }\r\n// });\r\n//Front end check status\r\nexports.answersRouter.get(\"/checkactive\", (req, res) => __awaiter(void 0, void 0, void 0, function* () {\r\n    try {\r\n        const game_status = yield AnswerService.checkIfActive();\r\n        res.status(200).send(game_status);\r\n    }\r\n    catch (e) {\r\n        res.status(404).send(e.message);\r\n    }\r\n}));\r\n\n\n//# sourceURL=webpack:///./src/answers/answers.router.ts?");
+
+/***/ }),
+
+/***/ "./src/answers/answers.service.ts":
+/*!****************************************!*\
+  !*** ./src/answers/answers.service.ts ***!
+  \****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+eval("\r\nvar __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {\r\n    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }\r\n    return new (P || (P = Promise))(function (resolve, reject) {\r\n        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }\r\n        function rejected(value) { try { step(generator[\"throw\"](value)); } catch (e) { reject(e); } }\r\n        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }\r\n        step((generator = generator.apply(thisArg, _arguments || [])).next());\r\n    });\r\n};\r\nObject.defineProperty(exports, \"__esModule\", { value: true });\r\nexports.checkIfActive = exports.stop_round = exports.create_round = exports.create_user_new = exports.findAll = void 0;\r\n//import * as WordProcessing from \"./answers.service\";\r\n/**\r\n * In-Memory Store\r\n */\r\nlet user_answers = {};\r\nlet backend_answers = {};\r\nlet current_round = { question: \"Init\", active: false };\r\nlet unsorted_groups = {};\r\nlet answer_array = [\"cactus\", \"checling\"];\r\n/**\r\n * Service Methods\r\n */\r\n//  export const findAll = async (): Promise<TopAnswers> => {\r\n//    //unsorted_groups = WordProcessing.returnGroups(answer_array);\r\n//    //let final_tally: TopAnswers = WordProcessing.topN(unsorted_groups,6);\r\n//    let final_tally: TopAnswers = {name: \"string\", count:2};\r\n//    return final_tally;\r\n// };\r\nconst findAll = () => __awaiter(void 0, void 0, void 0, function* () {\r\n    return answer_array;\r\n});\r\nexports.findAll = findAll;\r\n// export const create = async (newAnswer: Answer): Promise<void> => {\r\n//   const id = new Date().valueOf();\r\n//   answers[id] = {\r\n//     ...newAnswer,\r\n//     id,\r\n//     children: []\r\n//   };\r\n// };\r\nconst create_user_new = (newAnswer) => __awaiter(void 0, void 0, void 0, function* () {\r\n    if (current_round.active == true) {\r\n        answer_array.push(newAnswer);\r\n    }\r\n});\r\nexports.create_user_new = create_user_new;\r\nconst create_round = (newRound) => __awaiter(void 0, void 0, void 0, function* () {\r\n    answer_array.length = 0;\r\n    current_round.question = newRound.question;\r\n    current_round.active = true;\r\n});\r\nexports.create_round = create_round;\r\nconst stop_round = () => __awaiter(void 0, void 0, void 0, function* () {\r\n    current_round.active = false;\r\n});\r\nexports.stop_round = stop_round;\r\nconst checkIfActive = () => __awaiter(void 0, void 0, void 0, function* () {\r\n    return current_round.active;\r\n});\r\nexports.checkIfActive = checkIfActive;\r\n// export const join = async (parent: Answer, child: Answer): Promise<void> => {\r\n//   const newParent = await find(parent.id);\r\n//   const newChild = await find(child.id);\r\n//   // First check to make sure the parent doesn't contain the child\r\n//   if (!newParent.children.some(answer => answer.id === newChild.id)) {\r\n//     parent.children.push(newChild);\r\n//   }\r\n// }\r\n\n\n//# sourceURL=webpack:///./src/answers/answers.service.ts?");
+
+/***/ }),
+
+/***/ 0:
+/*!*********************************************!*\
+  !*** multi webpack/hot/poll?100 ./index.ts ***!
+  \*********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("__webpack_require__(/*! webpack/hot/poll?100 */\"./node_modules/webpack/hot/poll.js?100\");\nmodule.exports = __webpack_require__(/*! ./index.ts */\"./index.ts\");\n\n\n//# sourceURL=webpack:///multi_webpack/hot/poll?");
+
+/***/ }),
+
+/***/ "cors":
+/*!***********************!*\
+  !*** external "cors" ***!
+  \***********************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("module.exports = require(\"cors\");\n\n//# sourceURL=webpack:///external_%22cors%22?");
+
+/***/ }),
+
+/***/ "dotenv":
+/*!*************************!*\
+  !*** external "dotenv" ***!
+  \*************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("module.exports = require(\"dotenv\");\n\n//# sourceURL=webpack:///external_%22dotenv%22?");
+
+/***/ }),
+
+/***/ "express":
+/*!**************************!*\
+  !*** external "express" ***!
+  \**************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("module.exports = require(\"express\");\n\n//# sourceURL=webpack:///external_%22express%22?");
+
+/***/ }),
+
+/***/ "helmet":
+/*!*************************!*\
+  !*** external "helmet" ***!
+  \*************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("module.exports = require(\"helmet\");\n\n//# sourceURL=webpack:///external_%22helmet%22?");
 
 /***/ })
 
