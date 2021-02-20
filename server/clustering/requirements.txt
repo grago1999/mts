@@ -1,0 +1,8 @@
+flask
+flasgger==0.8.1
+httplib2
+stemming
+pandas
+sklearn
+nltk
+StringIO
