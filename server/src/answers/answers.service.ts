@@ -61,11 +61,11 @@ export const remove = async (id: number): Promise<void> => {
   throw new Error("No record found to delete");
 };
 
-export const join = async (from: Answer, to: Answer): Promise<void> => {
-  const parent = await find(to.id);
-  const child = await find(from.id);
+export const join = async (parent: Answer, child: Answer): Promise<void> => {
+  const newParent = await find(parent.id);
+  const newChild = await find(child.id);
   // First check to make sure the parent doesn't contain the child
-  if (!parent.children.some(answer => answer.id === child.id)) {
-    parent.children.push(child);
+  if (!newParent.children.some(answer => answer.id === newChild.id)) {
+    parent.children.push(newChild);
   }
 }

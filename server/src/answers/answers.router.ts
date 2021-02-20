@@ -67,9 +67,9 @@ answersRouter.post("/start", async (req: Request, res: Response) => {
 
 answersRouter.post('/join', async(req: Request, res: Response) => {
   try {
-    const from: Answer = req.body.answerFrom;
-    const to: Answer = req.body.answerTo;
-    await AnswerService.join(from,to);
+    const parent: Answer = req.body.parentAnswer;
+    const child: Answer = req.body.childAnswer;
+    await AnswerService.join(parent,child);
     res.sendStatus(200);
   } catch (e) {
     res.status(500).send(e.message);
