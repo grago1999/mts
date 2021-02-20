@@ -1,5 +1,10 @@
 client/node_modules
 server/node_modules
+twitch-extension/extensions-boilerplate/package-lock.json
+twitch-extension/extensions-boilerplate/node_modules
+twitch-extension/extensions-boilerplate/__mocks__
+twitch-extension/extensions-boilerplate/coverage
+twitch-extension/extensions-boilerplate/dist
 server/package-lock.json
 server/dist
 server/webpack.config.ts
