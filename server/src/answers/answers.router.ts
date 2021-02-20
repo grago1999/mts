@@ -10,6 +10,7 @@
  import { GroupMap } from "./answers.interface";
  import { TopAnswers } from "./answers.interface";
  import { Round } from "./answer.interface";
+ import { Basic_Ans } from "./answer.interface";
 
 /**
  * Router Definition
@@ -32,10 +33,11 @@ export const answersRouter = express.Router();
   }
 });
 
+
 //SUBMIT THE USER ANSWER 2
 answersRouter.post("/submitAnswerNew", async (req: Request, res: Response) => {
   try {
-    let user_answer_new: string = req.body.string;
+    let user_answer_new: Basic_Ans = req.body.basic_ans;
     await AnswerService.create_user_new(user_answer_new);
 
     res.sendStatus(201);
@@ -43,6 +45,7 @@ answersRouter.post("/submitAnswerNew", async (req: Request, res: Response) => {
     res.status(404).send(e.message);
   }
 });
+//WORKED
 
 //Start new round
 answersRouter.post("/start", async (req: Request, res: Response) => {
@@ -55,6 +58,7 @@ answersRouter.post("/start", async (req: Request, res: Response) => {
     res.status(500).send(e.message);
   }
 });
+//WORKED
 
 //Stop accepting answers
 answersRouter.get("/stop", async (req: Request, res: Response) => {
@@ -65,6 +69,7 @@ answersRouter.get("/stop", async (req: Request, res: Response) => {
     res.status(500).send(e.message);
   }
 });
+//WORKED
 
 
 // answersRouter.post('/join', async(req: Request, res: Response) => {
@@ -87,5 +92,5 @@ answersRouter.get("/checkactive", async (req: Request, res: Response) => {
  } catch (e) {
    res.status(404).send(e.message);
  }
-
 });
+//WORKED

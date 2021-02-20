@@ -8,6 +8,7 @@
  import { GroupMap } from "./answers.interface";
  import { TopAnswers } from "./answers.interface";
  import { Round } from "./answer.interface";
+ import { Basic_Ans } from "./answer.interface";
  //import * as WordProcessing from "./answers.service";
 
 /**
@@ -43,9 +44,9 @@ export const findAll = async (): Promise<string[]> => {
 //   };
 // };
 
-export const create_user_new = async (newAnswer: string): Promise<void> => {
+export const create_user_new = async (newAnswer: Basic_Ans): Promise<void> => {
   if(current_round.active == true) {
-    answer_array.push(newAnswer)
+    answer_array.push(newAnswer.answer)
   }
 
 };
