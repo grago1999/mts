@@ -2,7 +2,7 @@
  * Required External Modules and Interfaces
  */
  import express, { Request, Response } from "express";
- import * as ItemService from "./items.service";
+ import * as AnswerService from "./answers.service";
  import { Answer } from "./answer.interface";
  import { Answers } from "./answers.interface";
 
@@ -18,7 +18,7 @@ export const answersRouter = express.Router();
  //Get the top answers
  answersRouter.get("/", async (req: Request, res: Response) => {
   try {
-    const answers: Answers = await ItemService.findAll();
+    const answers: Answers = await AnswerService.findAll();
 
     res.status(200).send(answers);
   } catch (e) {
@@ -26,14 +26,12 @@ export const answersRouter = express.Router();
   }
 });
 
-// GET items/:id
 //Get all groups
-
 answersRouter.get("/:id", async (req: Request, res: Response) => {
   const id: number = parseInt(req.params.id, 10);
 
   try {
-    const answer: Answer = await ItemService.find(id);
+    const answer: Answer = await AnswerService.find(id);
 
     res.status(200).send(item);
   } catch (e) {
@@ -41,15 +39,12 @@ answersRouter.get("/:id", async (req: Request, res: Response) => {
   }
 });
 
-
-// POST items/
 //SUBMIT THE USER ANSWER
-
-answersRouter.post("/", async (req: Request, res: Response) => {
+answersRouter.post("/submitAnswer", async (req: Request, res: Response) => {
   try {
     const answer: Answer = req.body.item;
 
-    await ItemService.create(answer);
+    await AnswerService.create(answer);
 
     res.sendStatus(201);
   } catch (e) {
@@ -57,27 +52,12 @@ answersRouter.post("/", async (req: Request, res: Response) => {
   }
 });
 
-// PUT items/
 //Start new round
-
-answersRouter.put("/", async (req: Request, res: Response) => {
+answersRouter.post("/start", async (req: Request, res: Response) => {
   try {
     const answer: Answer = req.body.item;
 
-    await ItemService.update(answer);
-
-    res.sendStatus(200);
-  } catch (e) {
-    res.status(500).send(e.message);
-  }
-});
-
-// DELETE items/:id
-
-answersRouter.delete("/:id", async (req: Request, res: Response) => {
-  try {
-    const id: number = parseInt(req.params.id, 10);
-    await ItemService.remove(id);
+    await AnswerService.update(answer);
 
     res.sendStatus(200);
   } catch (e) {
