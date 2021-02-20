@@ -14,6 +14,8 @@ export const answersRouter = express.Router();
 /**
  * Controller Definitions
  */
+
+ //Get the top answers
  answersRouter.get("/", async (req: Request, res: Response) => {
   try {
     const answers: Answers = await ItemService.findAll();
@@ -25,6 +27,7 @@ export const answersRouter = express.Router();
 });
 
 // GET items/:id
+//Get all groups
 
 answersRouter.get("/:id", async (req: Request, res: Response) => {
   const id: number = parseInt(req.params.id, 10);
@@ -40,6 +43,7 @@ answersRouter.get("/:id", async (req: Request, res: Response) => {
 
 
 // POST items/
+//SUBMIT THE USER ANSWER
 
 answersRouter.post("/", async (req: Request, res: Response) => {
   try {
@@ -54,6 +58,7 @@ answersRouter.post("/", async (req: Request, res: Response) => {
 });
 
 // PUT items/
+//Start new round
 
 answersRouter.put("/", async (req: Request, res: Response) => {
   try {
