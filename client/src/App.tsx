@@ -11,9 +11,23 @@ enum Tabs {
 }
 
 const PlayTab = () => {
+  const [question, setQuestion] = useState("")
+
+  const updateQuestion = () => {
+    fetch("http://localhost:7000/answers/checkactive")
+      .then(response => response.json())
+      .then(response => {
+          setQuestion(response.question)
+          setTimeout(() => updateQuestion(), 2000)
+      })
+  }
+
+  useEffect(() => updateQuestion(), [])
+  
   return (
     <div id="play" className="tab">
-      <h1>Question: What is the best gaming platform?</h1>
+      {question && <h1>{question}</h1>}
+      {!question && <h1>Waiting...</h1>}
       <GroupList />
     </div>
   )

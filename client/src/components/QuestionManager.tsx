@@ -8,29 +8,36 @@ function QuestionManager() {
 		const input = (document.getElementById("question") as HTMLInputElement)
 		const question = input.value
 		input.value = ""
+		fetch("http://localhost:7000/answers/start", {
+            method: "POST",
+            headers: {
+				"Accept": "application/json",
+				"Content-Type": "application/json",
+			},
+            body: JSON.stringify({
+                round: {
+					question,
+					active: true
+				}
+            })
+        })
+		.then(response => response.text())
+		.then(question => setCurrentQuestion(question))
 	}
 
 	const stop = () => {
-
+		fetch("http://localhost:7000/answers/stop")
+		.then(() => setCurrentQuestion(""))
 	}
-
-	const getCurrentQuestion = () => {
-		// fetch("http://localhost:1000")
-		// .then(response => response.json())
-		// .then(question => setCurrentQuestion(question))
-		setCurrentQuestion("get from api")
-	}
-
-	useEffect(() => getCurrentQuestion(), [currentQuestion])
 
 	return (
 		<div id="questions">
-			<input id="question" placeholder="Next Question" className="input" />
+		{currentQuestion && <p>Current Quesiton: {currentQuestion}</p>}
+			{!currentQuestion && <input id="question" placeholder="Next Question" className="input" />}
 			<div id="buttons" className="buttons">
 				{!currentQuestion && <button id="submit" className="button" onClick={submit}>{"Start Round"}</button>}
 				{currentQuestion && <button id="stop" className="button" onClick={stop}>{"Stop Round"}</button>}
 			</div>
-			<p>Current Quesiton: {currentQuestion}</p>
 		</div>
 	)
 }

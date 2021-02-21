@@ -3,8 +3,7 @@ import React, { useState, useEffect } from "react"
 import "./groupList.css"
 
 interface GroupItem {
-	id: string,
-	mainWord: string,
+	name: string,
 	count: number,
 	hidden: boolean
 }
@@ -12,61 +11,24 @@ interface GroupItem {
 function GroupList() {
 	const [groups, setGroups] = useState<GroupItem[]>([])
 
-	const getGroupList = () => {
-		// fetch("http://localhost:1000")
-		// .then(response => response.json())
-		// .then(groups => setGroups(groups.sort((a: Group, b: Group) => a.count > b.count)))
-		const groups: GroupItem[] = [
-			{
-				id: "abc1",
-				mainWord: "gum",
-				count: 10,
-				hidden: true
-			},
-			{
-				id: "abc2",
-				mainWord: "game",
-				count: 4,
-				hidden: true
-			},
-			{
-				id: "abc3",
-				mainWord: "steam",
-				count: 6,
-				hidden: true
-			},
-			{
-				id: "abc4",
-				mainWord: "foo",
-				count: 8,
-				hidden: true
-			},
-			{
-				id: "abc5",
-				mainWord: "cactus",
-				count: 1,
-				hidden: true
-			},
-			{
-				id: "abc6",
-				mainWord: "bar",
-				count: 2,
-				hidden: true
-			},
-		]
-		setGroups(groups.sort((a: GroupItem, b: GroupItem) => a.count > b.count ? 1 : -1))
+	const getGroupList = (previousGroups: GroupItem[] = []) => {
+		fetch("http://localhost:7000/answers/allanswers")
+		.then(response => response.json())
+		.then(newGroups => {
+			if (newGroups.length !== previousGroups.length || (previousGroups.length > 0 && newGroups.length > 0 && previousGroups[0].name !== newGroups[0].name)) {
+				newGroups = newGroups.map((g: any) => Object.assign({}, g, { hidden: true }))
+				newGroups.sort((a: GroupItem, b: GroupItem) => b.count - a.count)
+				setGroups(newGroups)
+			}
+			setTimeout(() => getGroupList(newGroups), 5000)
+		})
 	}
 	
-	
-	useEffect(() => {
-		if (groups.length === 0) {
-			getGroupList()
-		}
-	})
+	useEffect(() => getGroupList(), [])
 
-	const show = (id: string) => {
+	const show = (name: string) => {
 		let newGroups: GroupItem[] = groups.map(group => {
-			if (group.id === id) {
+			if (group.name === name) {
 				group.hidden = false
 			}
 			return group
@@ -76,13 +38,13 @@ function GroupList() {
 
 	return (
 		<div id="group-list" className="list">
-			{groups.length > 0 && groups.map((group: GroupItem, i: number) => {
+			{groups.map((group: GroupItem, i: number) => {
 				const id = `group_${i}`
 
 				return (
 					<div id={id} key={id} className="item">
 						<h1>{i+1}</h1>
-						<button onClick={() => show(group.id)}>{group.hidden ? "?" : group.mainWord}</button>
+						<button id={`${id}_button`} className="hiddenButton" onClick={() => show(group.name)}>{group.hidden ? "?" : group.name}</button>
 					</div>
 				)	
 			})}
