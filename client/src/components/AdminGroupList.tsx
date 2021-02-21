@@ -3,8 +3,7 @@ import React, { useState, useEffect } from "react"
 import "./adminGroupList.css"
 
 interface GroupItem {
-	id: string,
-	mainWord: string,
+	name: string,
 	count: number,
 	words: string[]
 }
@@ -14,60 +13,24 @@ const groupItemSort = (a: GroupItem, b: GroupItem) => a.count > b.count ? -1 : 1
 function AdminGroupList() {
 	const [groups, setGroups] = useState<GroupItem[]>([]);
 	const [wordToMove, setWordToMove] = useState('');
-	const [groupFrom, setGroupFrom] = useState({id:'',mainWord:''});
-	const [groupTo, setGroupTo] = useState({id:'',mainWord:''});
+	const [groupFrom, setGroupFrom] = useState({name:''});
+	const [groupTo, setGroupTo] = useState({name:''});
 
 	const getGroupList = () => {
-		// fetch("http://localhost:1000")
-		// .then(response => response.json())
-		// .then(groups => setGroups(groups.sort((a: Group, b: Group) => a.count > b.count)))
-		const groups: GroupItem[] = [
-			{
-				id: "abc1",
-				mainWord: "gum",
-				count: 10,
-				words: ["gum1", "gum2"]
-			},
-			{
-				id: "abc2",
-				mainWord: "game",
-				count: 4,
-				words: ["game1", "game2"]
-			},
-			{
-				id: "abc3",
-				mainWord: "steam",
-				count: 6,
-				words: ["steam1", "steam2"]
-			},
-			{
-				id: "abc4",
-				mainWord: "foo",
-				count: 8,
-				words: ["foo1", "foo2"]
-			},
-			{
-				id: "abc5",
-				mainWord: "cactus",
-				count: 1,
-				words: ["cactus1", "cactus2"]
-			},
-			{
-				id: "abc6",
-				mainWord: "bar",
-				count: 2,
-				words: ["bar1", "bar2"]
-			},
-		]
-		setGroups(groups.sort(groupItemSort))
+		fetch("http://localhost:7000/answers/allanswers")
+		.then(response => response.json())
+		.then(groups => {
+			groups = groups.map((g: any) => Object.assign({}, g, { words: [] }))
+			return setGroups(groups.sort((a: GroupItem, b: GroupItem) => a.count > b.count ? 1 : -1))
+		})
 	}
 
 	const moveWord = (word: string, from: any, to: any) => {
 		const newGroups = groups.map((group: GroupItem) => {
-			if(group.id === to.id){
+			if(group.name === to.name){
 				group.count += 1; //TODO: Find the actual count of the word
 				group.words.push(word);
-			} else if(group.id === from.id) {
+			} else if(group.name === from.name) {
 					group.count -= 1;
 					group.words = group.words.filter((ans: string) => ans !== word);
 			}
@@ -76,8 +39,8 @@ function AdminGroupList() {
 		})
 		setGroups(newGroups.sort(groupItemSort));
 		setWordToMove('');
-		setGroupFrom({id: '', mainWord: ''});
-		setGroupTo({id: '', mainWord: ''});
+		setGroupFrom({name: ''});
+		setGroupTo({name: ''});
 	};
 	
 	
@@ -85,7 +48,11 @@ function AdminGroupList() {
 		if (groups.length === 0) {
 			getGroupList()
 		}
-	})
+	}, [])
+
+	if (groups.length === 0) {
+		return null
+	}
 
 	return (
 		<>
@@ -95,12 +62,12 @@ function AdminGroupList() {
 
 					return (
 						<div id={id} key={id} className="item">
-							<h3>{`${i+1} - ${group.mainWord}`}</h3>
+							<h3>{`${i+1} - ${group.name}`}</h3>
 							<div id={`${id}_words`} className="words">
 								{group.words.map(word => {
 									return <button key={word} onClick={() => {
 										setWordToMove(word);
-										setGroupFrom({id: group.id, mainWord: group.mainWord});
+										setGroupFrom({name: group.name});
 									}}>{word}</button>
 								})}
 							</div>
@@ -110,11 +77,11 @@ function AdminGroupList() {
 			</div>
 			<div>
 				<div>Word Being Moved: {wordToMove}</div>
-				<div>From Group: {groupFrom.mainWord}</div>
-				<div>To Group: {groupTo.mainWord}</div>
+				<div>From Group: {groupFrom.name}</div>
+				<div>To Group: {groupTo.name}</div>
 				<button onClick={() => moveWord(wordToMove, groupFrom,groupTo)}> Move </button>
-				{wordToMove && groups.filter(group => group.id !== groupFrom.id).map(
-					group => <button key={group.id} onClick={() => setGroupTo({id: group.id, mainWord: group.mainWord})}> {group.mainWord} </button>
+				{wordToMove && groups.filter(group => group.name !== groupFrom.name).map(
+					group => <button key={group.name} onClick={() => setGroupTo({name: group.name})}> {group.name} </button>
 				)}
 			</div>
 		</>

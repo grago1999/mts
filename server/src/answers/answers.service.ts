@@ -16,9 +16,9 @@
  */
 let user_answers: UserAnswers = {};
 let backend_answers: BackendAnswers = {};
-let current_round: Round = {question: "Init", active: false};
+let current_round: Round = {question: "", active: false};
 let unsorted_groups: GroupMap = {};
-let answer_array: string[] = ["cactus", "checling"];
+let answer_array: string[] = [];
 
 /**
  * Service Methods
@@ -64,6 +64,10 @@ export const stop_round = async (): Promise<void> => {
 export const checkIfActive = async (): Promise<boolean> => {
  return current_round.active;
 };
+
+export const getQuestion = async (): Promise<string> => {
+  return current_round.question;
+ };
 
 // export const join = async (parent: Answer, child: Answer): Promise<void> => {
 //   const newParent = await find(parent.id);

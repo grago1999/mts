@@ -5,7 +5,7 @@ import * as dotenv from "dotenv";
 import express from "express";
 import cors from "cors";
 import helmet from "helmet";
-import { answersRouter } from "/src/answers/answers.router";
+import { answersRouter } from "./src/answers/answers.router";
 
 dotenv.config();
 

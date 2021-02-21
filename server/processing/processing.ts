@@ -79,6 +79,7 @@ export function returnGroups(input : string[], stringGroups : string[][] = []) :
   var out : {[name : string] : number} = {};
   var tokenizer = new natural.WordTokenizer();
   for (let str of stringGroups) {
+    // @ts-ignore
     out[str] = 0;
   }
   // iterate through strings
@@ -128,8 +129,8 @@ export function returnGroups(input : string[], stringGroups : string[][] = []) :
   // Now we combine the groups we have such that the answer in the group with
   // the greatest count gets priority
   var realOut : {[name : string] : number} = {};
-  console.log("This is a test.");
-  console.log(stringGroups);
+  console.log("starting processing for words:")
+  console.log(stringGroups)
   for (var i = 0; i < stringGroups.length; i++) {
     var strGroup = stringGroups[i];
     var bestStr = "";
