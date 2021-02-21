@@ -1,11 +1,10 @@
 /**
  * Data Model Interfaces
  */
- import { UserAnswer } from "./answer.interface";
+ import { Groups, UserAnswer } from "./answer.interface";
  import { UserAnswers } from "./answers.interface";
  import { BackendAnswer } from "./answer.interface";
  import { BackendAnswers } from "./answers.interface";
- import { GroupMap } from "./answers.interface";
  import { TopAnswers } from "./answers.interface";
  import { Round } from "./answer.interface";
  import { Basic_Ans } from "./answer.interface";
@@ -17,7 +16,7 @@
 let user_answers: UserAnswers = {};
 let backend_answers: BackendAnswers = {};
 let current_round: Round = {question: "", active: false};
-let unsorted_groups: GroupMap = {};
+let unsorted_groups: Groups = {};
 let answer_array: string[] = [];
 
 /**

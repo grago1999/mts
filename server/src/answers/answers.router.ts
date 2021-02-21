@@ -7,7 +7,6 @@
  import { UserAnswers } from "./answers.interface";
  import { BackendAnswer } from "./answer.interface";
  import { BackendAnswers } from "./answers.interface";
- import { GroupMap } from "./answers.interface";
  import { TopAnswers } from "./answers.interface";
  import { Round } from "./answer.interface";
  import { Basic_Ans } from "./answer.interface";

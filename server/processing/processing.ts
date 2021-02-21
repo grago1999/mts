@@ -1,12 +1,9 @@
 import { TopAnswers } from "../src/answers/answers.interface";
+import { Groups } from "../src/answers/answer.interface"
 
 var natural = require('natural');
 const csv = require('csv-parser');
 const fs = require('fs');
-
-
-
-
 
 const getLetterMap = (str: string): Map<string, string> => {
   const letters = new Map()
@@ -65,17 +62,17 @@ function isSimilar(first : string, second : string, sharedLetterThreshold : numb
 }
 
 // function that gets the top n answers from the returnGroups function
-export function topN(groups : {[name : string] : number}, n : number) : TopAnswers[] {
+export function topN(groups : Groups, n : number) : TopAnswers[] {
   var props = Object.keys(groups).map(function(name) {
     // @ts-ignore
-    return {name : name, count : this[name]};
+    return {name : name, count : this[name].bestScore, strGroup: this[name].strGroup };
   }, groups);
   props.sort(function(w1, w2) { return w2.count - w1.count;});
   return props.slice(0, n);
 }
 
 // big function that takes in all the input and slots them into groups
-export function returnGroups(input : string[], stringGroups : string[][] = []) : {[name : string] : number} {
+export function returnGroups(input : string[], stringGroups : string[][] = []) : Groups {
   var out : {[name : string] : number} = {};
   var tokenizer = new natural.WordTokenizer();
   for (let str of stringGroups) {
@@ -128,7 +125,7 @@ export function returnGroups(input : string[], stringGroups : string[][] = []) :
   }
   // Now we combine the groups we have such that the answer in the group with
   // the greatest count gets priority
-  var realOut : {[name : string] : number} = {};
+  var realOut : Groups = {};
   console.log("starting processing for words:")
   console.log(stringGroups)
   for (var i = 0; i < stringGroups.length; i++) {
@@ -144,7 +141,10 @@ export function returnGroups(input : string[], stringGroups : string[][] = []) :
         bestStr = str;
       }
     }
-    realOut[bestStr] = bestScore;
+    realOut[bestStr] = {
+      bestScore,
+      strGroup
+    };
   }
   return realOut;
 }
