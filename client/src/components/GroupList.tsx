@@ -37,7 +37,7 @@ function GroupList() {
 	}
 
 	const halfGroups: number[] = []
-	    const halfLength: number = groups.length/2
+	    const halfLength: number = parseInt(`${groups.length/2}`)
 	    groups.forEach((_, i) => {
 	        if (i < halfLength) {
 	            halfGroups.push(i)
@@ -45,23 +45,35 @@ function GroupList() {
 	    })
 	    return (
 	        <table id="group-list" className="AnswerTable">
-	            {halfGroups.map((_, i: number) => {
+	            {halfGroups.map(i => {
 	                const firstGroupId = `group${i}`
 	                const secondGroupId = `group${i+halfLength}`
 	                const id = `${firstGroupId}_${secondGroupId}`
 
 	                const firstGroup = groups[i]
+
+					console.log(groups.length)
+					console.log(i+halfLength)
+					if (groups.length < i+halfLength) {
+						return <tr key={id}>
+	                        <td className = "Cell">
+								{firstGroup.hidden && <div onClick={() => show(firstGroup.name)} className = "AnswerCard"  id={firstGroupId}>{i+1}</div>}
+								{!firstGroup.hidden && <div className = "Answer" id={firstGroupId}>{firstGroup.name}</div>}
+	                        </td>
+	                    </tr>
+					}
+
 	                const secondGroup = groups[i+halfLength]
 
 	                return (
 	                    <tr key={id}>
 	                        <td className = "Cell">
-														{firstGroup.hidden && <div onClick={() => show(firstGroup.name)} className = "AnswerCard"  id={firstGroupId}>{i+1}</div>}
-														{!firstGroup.hidden && <div className = "Answer" id={firstGroupId}>{firstGroup.name}</div>}
+								{firstGroup.hidden && <div onClick={() => show(firstGroup.name)} className = "AnswerCard"  id={firstGroupId}>{i+1}</div>}
+								{!firstGroup.hidden && <div className = "Answer" id={firstGroupId}>{firstGroup.name}</div>}
 	                        </td>
 	                        <td className = "Cell">
-														{secondGroup.hidden && <div onClick={() => show(secondGroup.name)} className = "AnswerCard"  id={secondGroupId}>{i+halfLength+1}</div>}
-														{!secondGroup.hidden && <div className = "Answer" id={secondGroupId}>{secondGroup.name}</div>}
+								{secondGroup.hidden && <div onClick={() => show(secondGroup.name)} className = "AnswerCard"  id={secondGroupId}>{i+halfLength+1}</div>}
+								{!secondGroup.hidden && <div className = "Answer" id={secondGroupId}>{secondGroup.name}</div>}
 	                        </td>
 	                    </tr>
 	                )

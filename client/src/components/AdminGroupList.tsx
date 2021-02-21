@@ -92,7 +92,7 @@ function AdminGroupList() {
 					)
 				})}
 			</div>
-			<div>
+			{false && <div>
 				<div className = "wordDiv">Word Being Moved: {wordToMove}</div>
 				<div className = "wordDiv">From Group: {groupFrom.name}</div>
 				<div className = "wordDiv">To Group: {groupTo.name}</div>
@@ -100,7 +100,7 @@ function AdminGroupList() {
 					group => <button  className = "button" key={group.name} onClick={() => setGroupTo({name: group.name})}> {group.name} </button>
 				)}
 				<button className = "NavButton" onClick={() => moveWord(wordToMove, groupFrom,groupTo)}> Move </button>
-			</div>
+			</div>}
 		</>
 	)
 }

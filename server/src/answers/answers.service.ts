@@ -13,7 +13,12 @@
 
 let current_round: Round = {question: "", active: false};
 let unsorted_groups: Groups = {};
-let answer_array: string[] = [];
+let answer_array: string[] = [
+  "gamer", "game", "games",
+  "ball", "balls",
+  "eat", "eating",
+  "write", "writing"
+];
 let manual_groups: string[][] = [];
 
 /**

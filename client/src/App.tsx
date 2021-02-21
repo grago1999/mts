@@ -28,7 +28,7 @@ const PlayTab = () => {
     <div id="play" className="tab">
       {question && <h1 className = "Q">Question: {question}</h1>}
       {!question && <h1 className = "Q">Waiting...</h1>}
-      <GroupList />
+      {question && <GroupList />}
     </div>
   )
 }

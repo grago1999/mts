@@ -19,7 +19,7 @@ const getLetterMap = (str: string): Map<string, string> => {
   return letters
 }
 
-const getUnique = (groups: string[][]) => groups.map((g: string[]) => Array.from(new Set(g)))
+const getUnique = (groups: string[][]): string[][] => groups.map((g: string[]) => Array.from(new Set(g)))
 
 function isSimilar(first : string, second : string, sharedLetterThreshold : number = 0.8, letterCountThreshold : number = 0.75, editThreshold : number = 0.25) : boolean {
   // Basic edit distance, except transposition has a cost of 1
@@ -77,7 +77,6 @@ export function topN(groups : Groups, n : number) : TopAnswers[] {
 export function returnGroups(input : string[], stringGroups : string[][] = []) : Groups {
   stringGroups = getUnique(stringGroups)
   console.log("starting processing for words:")
-  console.log(stringGroups)
   var out : {[name : string] : number} = {};
   var tokenizer = new natural.WordTokenizer();
   for (let str of stringGroups) {
