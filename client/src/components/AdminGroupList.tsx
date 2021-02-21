@@ -27,18 +27,37 @@ function AdminGroupList() {
 		})
 	}
 
+	const updateGroups = (groups: string[][]) => {
+		console.log("hi")
+		fetch("http://localhost:7000/answers/updateGroups", {
+            method: "POST",
+            headers: {
+				"Accept": "application/json",
+				"Content-Type": "application/json",
+			},
+            body: JSON.stringify({
+                groups
+            })
+        })
+	}
+
 	const moveWord = (word: string, from: any, to: any) => {
+		let strGroups: string[][] = []
 		const newGroups = groups.map((group: GroupItem) => {
 			if(group.name === to.name){
-				group.count += 1; //TODO: Find the actual count of the word
+				group.count += 1; // it'll get updated next api call so just temp
 				group.strGroup.push(word);
-			} else if(group.name === from.name) {
-					group.count -= 1;
-					group.strGroup = group.strGroup.filter((ans: string) => ans !== word);
+				strGroups.push(group.strGroup)
+			} else if (group.name === from.name) {
+				group.count -= 1;
+				group.strGroup = group.strGroup.filter((ans: string) => ans !== word);
+				strGroups.push(group.strGroup)
 			}
 
 			return group;
 		})
+		console.log(strGroups)
+		updateGroups(strGroups)
 		setGroups(newGroups.sort(groupItemSort));
 		setWordToMove('');
 		setGroupFrom({name: ''});

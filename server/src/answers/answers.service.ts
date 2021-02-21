@@ -1,10 +1,7 @@
 /**
  * Data Model Interfaces
  */
- import { Groups, UserAnswer } from "./answer.interface";
- import { UserAnswers } from "./answers.interface";
- import { BackendAnswer } from "./answer.interface";
- import { BackendAnswers } from "./answers.interface";
+ import { Groups } from "./answer.interface";
  import { TopAnswers } from "./answers.interface";
  import { Round } from "./answer.interface";
  import { Basic_Ans } from "./answer.interface";
@@ -14,18 +11,19 @@
  * In-Memory Store
  */
 
-let user_answers: UserAnswers = {};
-let backend_answers: BackendAnswers = {};
 let current_round: Round = {question: "", active: false};
 let unsorted_groups: Groups = {};
 let answer_array: string[] = [];
+let manual_groups: string[][] = [];
 
 /**
  * Service Methods
  */
 
+ export const setManualGroups = (groups: string[][]) => manual_groups = groups
+
  export const findAll = async (): Promise<TopAnswers[]> => {
-   unsorted_groups = WordProcessing.returnGroups(answer_array);
+   unsorted_groups = WordProcessing.returnGroups(answer_array, manual_groups);
    let final_tally: TopAnswers[] = WordProcessing.topN(unsorted_groups,6);
    //let final_tally: TopAnswers = {name: "string", count:2};
    return final_tally;
