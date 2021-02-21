@@ -15,5 +15,3 @@ Running the backend
 `npm run webpack`
 `npm start`
 
-Gianluca Rago: https://slackbeanpot2021.slack.com/team/U01N3HTGKGD
-Tommy Keating: https://slackbeanpot2021.slack.com/team/U01NK9J3N57
