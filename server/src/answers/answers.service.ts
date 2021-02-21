@@ -13,6 +13,7 @@
 /**
  * In-Memory Store
  */
+
 let user_answers: UserAnswers = {};
 let backend_answers: BackendAnswers = {};
 let current_round: Round = {question: "", active: false};
@@ -29,19 +30,6 @@ let answer_array: string[] = [];
    //let final_tally: TopAnswers = {name: "string", count:2};
    return final_tally;
 };
-
-// export const findAll = async (): Promise<string[]> => {
-//    return answer_array;
-// };
-
-// export const create = async (newAnswer: Answer): Promise<void> => {
-//   const id = new Date().valueOf();
-//   answers[id] = {
-//     ...newAnswer,
-//     id,
-//     children: []
-//   };
-// };
 
 export const create_user_new = async (newAnswer: Basic_Ans): Promise<void> => {
   if(current_round.active == true) {

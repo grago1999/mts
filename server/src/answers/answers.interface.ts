@@ -9,7 +9,6 @@ export interface BackendAnswers {
     [key: number]: BackendAnswer;
   }
 
-
 export interface TopAnswers {
   name: string;
   count: number;
