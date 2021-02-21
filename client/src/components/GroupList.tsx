@@ -11,20 +11,20 @@ interface GroupItem {
 function GroupList() {
 	const [groups, setGroups] = useState<GroupItem[]>([])
 
-	const getGroupList = () => {
+	const getGroupList = (previousGroups: GroupItem[] = []) => {
 		fetch("http://localhost:7000/answers/allanswers")
 		.then(response => response.json())
-		.then(groups => {
-			groups = groups.map((g: any) => Object.assign({}, g, { hidden: true }))
-			return setGroups(groups.sort((a: GroupItem, b: GroupItem) => a.count > b.count ? 1 : -1))
+		.then(newGroups => {
+			if (newGroups.length !== previousGroups.length || (previousGroups.length > 0 && newGroups.length > 0 && previousGroups[0].name !== newGroups[0].name)) {
+				newGroups = newGroups.map((g: any) => Object.assign({}, g, { hidden: true }))
+				newGroups.sort((a: GroupItem, b: GroupItem) => b.count - a.count)
+				setGroups(newGroups)
+			}
+			setTimeout(() => getGroupList(newGroups), 5000)
 		})
 	}
 	
-	useEffect(() => {
-		if (groups.length === 0) {
-			getGroupList()
-		}
-	}, [])
+	useEffect(() => getGroupList(), [])
 
 	const show = (name: string) => {
 		let newGroups: GroupItem[] = groups.map(group => {
@@ -38,13 +38,13 @@ function GroupList() {
 
 	return (
 		<div id="group-list" className="list">
-			{groups.length > 0 && groups.map((group: GroupItem, i: number) => {
+			{groups.map((group: GroupItem, i: number) => {
 				const id = `group_${i}`
 
 				return (
 					<div id={id} key={id} className="item">
 						<h1>{i+1}</h1>
-						<button onClick={() => show(group.name)}>{group.hidden ? "?" : group.name}</button>
+						<button id={`${id}_button`} className="hiddenButton" onClick={() => show(group.name)}>{group.hidden ? "?" : group.name}</button>
 					</div>
 				)	
 			})}

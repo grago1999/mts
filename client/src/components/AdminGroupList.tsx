@@ -1,11 +1,10 @@
-import { group } from "console"
 import React, { useState, useEffect } from "react"
 import "./adminGroupList.css"
 
 interface GroupItem {
 	name: string,
 	count: number,
-	words: string[]
+	strGroup: string[]
 }
 
 const groupItemSort = (a: GroupItem, b: GroupItem) => a.count > b.count ? -1 : 1;
@@ -16,12 +15,15 @@ function AdminGroupList() {
 	const [groupFrom, setGroupFrom] = useState({name:''});
 	const [groupTo, setGroupTo] = useState({name:''});
 
-	const getGroupList = () => {
+	const getGroupList = (previousGroups: GroupItem[] = []) => {
 		fetch("http://localhost:7000/answers/allanswers")
 		.then(response => response.json())
-		.then(groups => {
-			groups = groups.map((g: any) => Object.assign({}, g, { words: [] }))
-			return setGroups(groups.sort((a: GroupItem, b: GroupItem) => a.count > b.count ? 1 : -1))
+		.then(newGroups => {
+			if (newGroups.length !== previousGroups.length || (previousGroups.length > 0 && newGroups.length > 0 && previousGroups[0].name !== newGroups[0].name)) {
+				newGroups.sort((a: GroupItem, b: GroupItem) => b.count - a.count)
+				setGroups(newGroups)
+			}
+			setTimeout(() => getGroupList(newGroups), 5000)
 		})
 	}
 
@@ -29,10 +31,10 @@ function AdminGroupList() {
 		const newGroups = groups.map((group: GroupItem) => {
 			if(group.name === to.name){
 				group.count += 1; //TODO: Find the actual count of the word
-				group.words.push(word);
+				group.strGroup.push(word);
 			} else if(group.name === from.name) {
 					group.count -= 1;
-					group.words = group.words.filter((ans: string) => ans !== word);
+					group.strGroup = group.strGroup.filter((ans: string) => ans !== word);
 			}
 
 			return group;
@@ -44,11 +46,7 @@ function AdminGroupList() {
 	};
 	
 	
-	useEffect(() => {
-		if (groups.length === 0) {
-			getGroupList()
-		}
-	}, [])
+	useEffect(() => getGroupList(), [])
 
 	if (groups.length === 0) {
 		return null
@@ -63,8 +61,8 @@ function AdminGroupList() {
 					return (
 						<div id={id} key={id} className="item">
 							<h3>{`${i+1} - ${group.name}`}</h3>
-							<div id={`${id}_words`} className="words">
-								{group.words.map(word => {
+							<div id={`${id}_strGroup`} className="words">
+								{group.strGroup.map(word => {
 									return <button key={word} onClick={() => {
 										setWordToMove(word);
 										setGroupFrom({name: group.name});
