@@ -3,10 +3,6 @@
  */
  import express, { Request, Response } from "express";
  import * as AnswerService from "./answers.service";
- import { UserAnswer } from "./answer.interface";
- import { UserAnswers } from "./answers.interface";
- import { BackendAnswer } from "./answer.interface";
- import { BackendAnswers } from "./answers.interface";
  import { TopAnswers } from "./answers.interface";
  import { Round } from "./answer.interface";
  import { Basic_Ans } from "./answer.interface";
@@ -23,6 +19,18 @@ export const answersRouter = express.Router();
 //Get all user answers, to be used in processing
  answersRouter.get("/allanswers", async (req: Request, res: Response) => {
   try {
+    const final_results: TopAnswers[] = await AnswerService.findAll();
+    res.status(200).send(final_results);
+  } catch (e) {
+    res.status(404).send(e.message);
+  }
+});
+
+//Manually update groups
+answersRouter.post("/updateGroups", async (req: Request, res: Response) => {
+  try {
+    const groups = req.body.groups
+    AnswerService.setManualGroups(groups)
     const final_results: TopAnswers[] = await AnswerService.findAll();
     res.status(200).send(final_results);
   } catch (e) {

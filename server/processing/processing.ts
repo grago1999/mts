@@ -19,6 +19,8 @@ const getLetterMap = (str: string): Map<string, string> => {
   return letters
 }
 
+const getUnique = (groups: string[][]) => groups.map((g: string[]) => Array.from(new Set(g)))
+
 function isSimilar(first : string, second : string, sharedLetterThreshold : number = 0.8, letterCountThreshold : number = 0.75, editThreshold : number = 0.25) : boolean {
   // Basic edit distance, except transposition has a cost of 1
   var edits : number = natural.DamerauLevenshteinDistance(first, second);
@@ -73,6 +75,9 @@ export function topN(groups : Groups, n : number) : TopAnswers[] {
 
 // big function that takes in all the input and slots them into groups
 export function returnGroups(input : string[], stringGroups : string[][] = []) : Groups {
+  stringGroups = getUnique(stringGroups)
+  console.log("starting processing for words:")
+  console.log(stringGroups)
   var out : {[name : string] : number} = {};
   var tokenizer = new natural.WordTokenizer();
   for (let str of stringGroups) {
@@ -114,6 +119,7 @@ export function returnGroups(input : string[], stringGroups : string[][] = []) :
       if (!found) {
         // if we have not found an existing group for this, then just add the
         // new group for it
+
         stringGroups.push(strGroup);
       } else {
         console.log("added to existing");
@@ -126,8 +132,6 @@ export function returnGroups(input : string[], stringGroups : string[][] = []) :
   // Now we combine the groups we have such that the answer in the group with
   // the greatest count gets priority
   var realOut : Groups = {};
-  console.log("starting processing for words:")
-  console.log(stringGroups)
   for (var i = 0; i < stringGroups.length; i++) {
     var strGroup = stringGroups[i];
     var bestStr = "";
@@ -137,7 +141,7 @@ export function returnGroups(input : string[], stringGroups : string[][] = []) :
       let str : string = strGroup[j];
       total = total + out[str];
       if (out[str] > bestScore) {
-        bestScore = out[str];
+        bestScore += out[str];
         bestStr = str;
       }
     }
@@ -146,6 +150,7 @@ export function returnGroups(input : string[], stringGroups : string[][] = []) :
       strGroup
     };
   }
+  console.log(realOut);
   return realOut;
 }
 
