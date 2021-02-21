@@ -1,7 +1,7 @@
 .input {
 	border: none;
 	color: white;
-	background-color: rgba(82, 82, 82, 0.2);
+	background-color: #2F4CD0;
 	font-size: 30px;
 	margin: 0 auto;
 	margin-top: 100px;
@@ -21,11 +21,18 @@
 	width: 200px;
 	padding: 14px;
 	text-align: center;
-	background-color: rgba(82, 82, 82, 0.2);
+	background-color: #2F4CD0;
+  color: #D0B32F;
+	border-color: #D0B32F;
+  border: solid 3px #D0B32F;
 	border-radius: 8px;
 	justify-content: center;
 }
 
 .button:hover {
 	cursor: pointer;
+	background-color: #D0B32F;
+  color: #2F4CD0;
+	border-color: #2F4CD0;
+  border: solid 3px #2F4CD0;
 }

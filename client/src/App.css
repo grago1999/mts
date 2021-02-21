@@ -15,6 +15,7 @@
 .tab {
   width: 100%;
   height: 100%;
+  font-family: fantasy;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -24,7 +25,7 @@
 }
 
 .App-header {
-  background-color: #282c34;
+  background-color: #5970D9;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -45,4 +46,94 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.NavButton {
+  background-color: #2F4CD0;
+  color: #D0B32F;
+  font-family: fantasy;
+  padding: 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 36px;
+  margin: 4px 2px;
+  border-radius: 50%;
+  border-color: #D0B32F;
+  border-width: thick;
+  width: 175px;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.NavButton:hover {
+  background-color: #D0B32F;
+  color: #2F4CD0;
+  font-family: fantasy;
+  padding: 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 36px;
+  margin: 4px 2px;
+  border-radius: 50%;
+  border-color: #2F4CD0;
+  border-width: thick;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+
+.AnswerTable {
+  background-color: #2F4CD0;
+  border: 2px solid #D0B32F;
+  border-width: thick;
+  width:50%;
+  height: 260px;
+  padding: 5px;
+  margin: auto;
+  margin-bottom: 30px;
+}
+
+.Cell {
+  height: 88px;
+  background-color: #2F4CD0;
+  border: 2px solid #FFFFFF;
+  padding: 20px;
+  display: table-cell;
+  width: 50%;
+  margin: auto;
+}
+
+.AnswerCard {
+  background-image: linear-gradient(#D0B32F,#9C8623);
+  color: #FFFFFF;
+  font-family: fantasy;
+  padding: 20px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 48px;
+  margin: auto;
+  border-radius: 50%;
+  border-color: #FFA133;
+  border-width: thick;
+  width: 50%;
+}
+
+.Answer {
+  color: #FFFFFF;
+  font-family: fantasy;
+  padding: 20px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 48px;
+  margin: auto;
+  border-radius: 50%;
+  border-color: #FFA133;
+  border-width: thick;
+  width: 50%;
+}
+
+.Q {
+
 }
