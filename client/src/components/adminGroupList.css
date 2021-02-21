@@ -20,12 +20,28 @@
 }
 
 .adminList .words button {
-	font-size: 18px;
+	font-size: 20px;
 	width: 100px;
-	height: 40px;
-	line-height: 40px;
+	height: 20px;
+	line-height: 20px;
+	display: inline-block;
+	outline: none;
+	background: transparent;
+	border: none;
+	color: white;
+	padding: 20px;
+	padding-bottom: 40px;
+	margin-top: 40px;
+	margin-left: 40px;
+	background-color: rgba(82, 82, 82, 0.2);
+}
+
+.adminList .words button:hover {
+	cursor: pointer;
 }
 
 .adminList h3 {
-	width: 200px;
+	width: 400px;
+	text-align: left;
+	margin-left: 200px;
 }

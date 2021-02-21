@@ -24,7 +24,7 @@
 	color: white;
 }
 
-.item button {
+.item .hiddenButton {
 	margin: 40px;
 	margin-left: 160px;
 	display: inline-block;
@@ -38,7 +38,7 @@
 	color: white;
 }
 
-.item button:hover {
+.item .hiddenButton:hover {
 	cursor: pointer;
 	background-color: rgba(82, 82, 82, 0.2);
 }
