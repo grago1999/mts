@@ -23,11 +23,11 @@ const PlayTab = () => {
   }
 
   useEffect(() => updateQuestion(), [])
-  
+
   return (
     <div id="play" className="tab">
-      {question && <h1>{question}</h1>}
-      {!question && <h1>Waiting...</h1>}
+      {question && <h1 className = "Q">Question: {question}</h1>}
+      {!question && <h1 className = "Q">Waiting...</h1>}
       <GroupList />
     </div>
   )
@@ -49,8 +49,8 @@ function App() {
         {tab === Tabs.Play && <PlayTab />}
         {tab === Tabs.Admin && <AdminTab />}
         <div id="tabs" className="tabs">
-          <button onClick={() => setTab(Tabs.Play)}>Play</button>
-          <button onClick={() => setTab(Tabs.Admin)}>Admin</button>
+          <button className = "NavButton" onClick={() => setTab(Tabs.Play)}>Host</button>
+          <button className = "NavButton" onClick={() => setTab(Tabs.Admin)}>Admin</button>
         </div>
       </header>
     </div>
